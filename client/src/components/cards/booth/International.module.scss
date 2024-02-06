@@ -1,0 +1,32 @@
+.card {
+	background-color: var(--mantine-color-sec-6);
+	color: var(--mantine-color-white);
+	border: 2px solid var(--mantine-color-pri-6);
+	border-radius: var(--mantine-radius-sm);
+	padding: var(--mantine-spacing-xl);
+	overflow: hidden;
+	height: 100%;
+	transition: 0.25s all ease;
+
+	&:hover {
+		.price {
+			color: var(--mantine-color-pri-6);
+		}
+		.tag {
+			color: var(--mantine-color-pri-6);
+			background-color: var(--mantine-color-white);
+		}
+	}
+}
+
+.price {
+	color: var(--mantine-color-white);
+	transition: 0.25s all ease;
+}
+
+.tag {
+	background-color: var(--mantine-color-pri-6);
+	transition: 0.25s all ease;
+
+	transform: rotate(45deg);
+}

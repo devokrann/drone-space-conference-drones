@@ -1,0 +1,45 @@
+.menu-dropdown {
+	padding: 0;
+	border: 0px solid var(--mantine-color-pri-6);
+	background-color: transparent;
+}
+
+.menu-item {
+	background-color: var(--mantine-color-sec-6);
+	color: var(--mantine-color-white);
+	border-radius: 0;
+
+	transition: 0.25s all ease;
+
+	&:hover {
+		background-color: var(--mantine-color-pri-6);
+	}
+}
+
+.menu-item-label {
+	font-size: var(--mantine-font-size-xs);
+	font-weight: 500;
+}
+
+.menu-arrow {
+	border: 0px solid var(--mantine-color-white);
+	background-color: var(--mantine-color-sec-6);
+	z-index: -1;
+}
+
+.link {
+	color: var(--mantine-color-sec-6);
+	padding: 0 calc(var(--mantine-spacing-xs) / 4);
+	text-decoration: none;
+	font-size: var(--mantine-font-size-sm);
+	font-weight: 500;
+	transition: 0.25s all ease;
+
+	&:hover {
+		color: var(--mantine-color-pri-6);
+	}
+
+	&:active {
+		color: var(--mantine-color-pri-6);
+	}
+}

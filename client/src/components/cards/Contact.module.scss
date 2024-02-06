@@ -1,0 +1,25 @@
+.card {
+	border-radius: var(--mantine-radius-sm);
+
+	&:hover {
+		.icon {
+			text-decoration: none;
+			color: var(--mantine-color-pri-6);
+		}
+	}
+}
+
+.icon {
+	color: var(--mantine-color-white);
+	transition: 0.25s all ease;
+}
+
+.link {
+	color: var(--mantine-color-white);
+	transition: 0.25s all ease;
+
+	&:hover {
+		text-decoration: none;
+		color: var(--mantine-color-pri-6);
+	}
+}

@@ -1,0 +1,18 @@
+.card {
+	border: 1px solid var(--mantine-color-gray-2);
+	border-radius: var(--mantine-radius-sm);
+
+	&:hover {
+		.name {
+			opacity: 1;
+		}
+	}
+}
+
+.img {
+}
+
+.name {
+	opacity: 0;
+	transition: 0.25s all ease;
+}

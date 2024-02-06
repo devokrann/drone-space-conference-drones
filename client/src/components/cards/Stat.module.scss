@@ -1,0 +1,17 @@
+.card {
+	&:hover {
+		.stat {
+			border: 2px solid var(--mantine-color-pri-6);
+		}
+	}
+}
+
+.stat {
+	border: 2px solid white;
+	border-radius: 99px;
+	transition: 0.25s all ease;
+}
+
+.value {
+	color: white;
+}

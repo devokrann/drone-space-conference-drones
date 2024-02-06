@@ -1,0 +1,25 @@
+.link {
+	transition: 0.25s all ease;
+
+	&:hover {
+		color: var(--mantine-color-pri-6);
+	}
+}
+
+@keyframes glow {
+	0% {
+		background-color: var(--mantine-color-pri-6);
+	}
+	50% {
+		background-color: var(--mantine-color-sec-6);
+	}
+	100% {
+		background-color: var(--mantine-color-pri-6);
+	}
+}
+
+.animate {
+	padding: 0 8px;
+	border-radius: var(--mantine-radius-xl);
+	animation: glow 2s infinite;
+}

@@ -1,0 +1,35 @@
+.card {
+	border-radius: var(--mantine-radius-sm);
+	background-color: var(--mantine-color-sec-light);
+	padding: var(--mantine-spacing-xl);
+	transition: 0.25s all ease;
+
+	&:hover {
+		background-color: var(--mantine-color-pri-light);
+		cursor: pointer;
+
+		.icon {
+			background-color: var(--mantine-color-sec-light);
+			color: var(--mantine-color-sec-6);
+			transform: rotate(-15deg) scale(1.05);
+			left: 8px;
+		}
+
+		.title {
+			color: var(--mantine-color-pri-6);
+		}
+	}
+}
+
+.icon {
+	background-color: var(--mantine-color-pri-light);
+	color: var(--mantine-color-pri-6);
+	position: relative;
+	left: 0;
+	transition: 0.25s all ease;
+}
+
+.title {
+	color: var(--mantine-color-sec-6);
+	transition: 0.25s all ease;
+}

@@ -1,0 +1,66 @@
+.card {
+	background-color: var(--mantine-color-sec-light);
+	border-radius: var(--mantine-radius-sm);
+	padding: var(--mantine-spacing-xl);
+	position: relative;
+	transition: 0.25s all ease;
+
+	&:hover {
+		background-color: transparent;
+		cursor: pointer;
+
+		.title {
+			color: var(--mantine-color-pri-6);
+		}
+
+		.icon {
+			background-color: var(--mantine-color-pri-light);
+			opacity: 1;
+		}
+	}
+}
+
+.icon {
+	background-color: transparent;
+	color: var(--mantine-color-pri-6);
+	opacity: 0.1;
+	transition: 0.25s all ease;
+
+	position: absolute;
+	top: 8px;
+	right: 8px;
+}
+
+.title {
+	color: var(--mantine-color-sec-6);
+	transition: 0.25s all ease;
+}
+
+.link {
+	color: var(--mantine-color-sec-6);
+	text-decoration: none;
+
+	&:hover {
+		color: var(--mantine-color-pri-6);
+
+		.arrow {
+			opacity: 1;
+		}
+
+		.span {
+			left: -8px;
+		}
+	}
+}
+
+.span {
+	position: relative;
+	left: 16px;
+	transition: 0.25s all ease;
+}
+
+.arrow {
+	margin-top: 4px;
+	opacity: 0;
+	transition: 0.25s all ease;
+}

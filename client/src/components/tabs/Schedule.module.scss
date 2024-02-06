@@ -1,0 +1,22 @@
+.list {
+	background-color: var(--mantine-color-sec-6);
+	color: var(--mantine-color-white);
+	border-top-left-radius: var(--mantine-radius-sm);
+	border-top-right-radius: var(--mantine-radius-sm);
+	padding: 0 var(--mantine-spacing-lg);
+}
+
+.tab {
+	padding: var(--mantine-spacing-lg);
+	border-radius: 0;
+	transition: 0.25s all ease;
+
+	&:hover {
+		background-color: var(--mantine-color-sec-6);
+	}
+}
+
+.panel {
+	padding: var(--mantine-radius-xl) 0;
+	background-color: white;
+}
