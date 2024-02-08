@@ -12,7 +12,14 @@ export default function Gallery({ data }: typeGallery) {
 
 	return (
 		<>
-			<Modal opened={opened} onClose={close} centered size={"75%"} withCloseButton={false}>
+			<Modal
+				opened={opened}
+				onClose={close}
+				centered
+				size={"75%"}
+				withCloseButton={false}
+				classNames={{ header: classes.header, body: classes.body }}
+			>
 				<AspectRatio ratio={1920 / 1080}>
 					<Image src={data.img} alt={data.title} w={"100%"} />
 				</AspectRatio>

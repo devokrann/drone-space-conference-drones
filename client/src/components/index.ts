@@ -11,6 +11,7 @@ import overlay from "./overlay";
 import table from "./tables";
 import tab from "./tabs";
 import heading from "./headings";
+import input from "./inputs";
 
 const Component = {
 	Accordion: accordion,
@@ -26,6 +27,7 @@ const Component = {
 	Overlay: overlay,
 	Table: table,
 	Tab: tab,
+	Input: input,
 };
 
 export default Component;
