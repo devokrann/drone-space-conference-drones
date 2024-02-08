@@ -1,0 +1,10 @@
+.item {
+	border-bottom: 2px solid light-dark(var(--mantine-color-pri-6), var(--mantine-color-gray-light));
+	padding: var(--mantine-spacing-md);
+}
+
+.label {
+	font-weight: bold;
+	color: light-dark(var(--mantine-color-sec-6), var(--mantine-color-pri-6));
+	font-size: var(--mantine-font-size-sm);
+}

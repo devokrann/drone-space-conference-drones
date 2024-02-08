@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, List, Stack, Text } from "@mantine/core";
+import { Button, Divider, List, Stack, Text } from "@mantine/core";
 
 import { IconChevronRight } from "@tabler/icons-react";
 
@@ -13,7 +13,7 @@ import { typeSponsor } from "@src/types/ticket";
 export default function Sponsor({ data }: typeSponsor) {
 	return (
 		<Stack align="center" justify="space-between" pos={"relative"} className={classes.card} gap={"xl"}>
-			<Stack gap={"md"} w={"100%"}>
+			<Stack gap={"xl"} w={"100%"}>
 				<Stack gap={0} align="center">
 					<Text component="h3" ta={"center"} tt={"uppercase"} fw={500}>
 						{data.title}
@@ -25,6 +25,7 @@ export default function Sponsor({ data }: typeSponsor) {
 						{data.price}
 					</Text>
 				</Stack>
+				<Divider w={"100%"} color="pri.6" />
 				<List
 					spacing={"xs"}
 					size="xs"
@@ -35,7 +36,9 @@ export default function Sponsor({ data }: typeSponsor) {
 					))}
 				</List>
 			</Stack>
-			<modal.Application title={data.title}>Register</modal.Application>
+			<modal.Contact inquiry="Sponsorship Application" title={data.title} color={"sec"} variant={"light"}>
+				Register for {data.title}
+			</modal.Contact>
 		</Stack>
 	);
 }

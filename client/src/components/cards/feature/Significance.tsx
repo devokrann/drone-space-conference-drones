@@ -17,7 +17,7 @@ export default function Significance({ data }: typeSignificance) {
 			<Title order={3} className={classes.title} fz={"md"} tt={"uppercase"}>
 				{data.title}
 			</Title>
-			<Divider color="pri" size={"sm"} className={classes.divider} />
+			<Divider color="pri.6" size={"sm"} className={classes.divider} />
 			<Text component="p" fz={{ md: "xs", lg: "sm" }}>
 				{data.desc}
 			</Text>

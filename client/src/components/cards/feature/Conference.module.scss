@@ -1,21 +1,21 @@
 .card {
-	border-radius: var(--mantine-radius-sm);
+	border-radius: var(--mantine-radius-md);
 	background-color: var(--mantine-color-sec-light);
 	padding: var(--mantine-spacing-xs);
 	position: relative;
+	height: 100%;
 	transition: 0.25s all ease;
 
 	&:hover {
-		background-color: var(--mantine-color-pri-light);
+		background-color: light-dark(var(--mantine-color-pri-light), var(--mantine-color-gray-light));
 		cursor: pointer;
 
 		.icon {
-			background-color: var(--mantine-color-sec-light);
-			color: var(--mantine-color-sec-6);
-			border-radius: var(--mantine-radius-sm);
+			color: light-dark(var(--mantine-color-sec-6), inherit);
 			opacity: 1;
-			bottom: 0;
-			right: 0;
+			border-radius: var(--mantine-radius-xl);
+			bottom: 8px;
+			right: 8px;
 		}
 
 		.title {
@@ -25,17 +25,18 @@
 }
 
 .icon {
-	background-color: var(--mantine-color-pri-light);
-	color: var(--mantine-color-pri-6);
-	border-radius: var(--mantine-radius-xl);
+	background-color: light-dark(var(--mantine-color-pri-light), var(--mantine-color-pri-6));
+	color: light-dark(var(--mantine-color-pri-6), var(--mantine-color-sec-6));
 	position: absolute;
 	opacity: 0.25;
-	bottom: 8px;
-	right: 8px;
+	border-radius: 99px;
+	border-bottom-right-radius: var(--mantine-radius-md);
+	bottom: 0;
+	right: 0;
 	transition: 0.25s all ease;
 }
 
 .title {
-	color: var(--mantine-color-sec-6);
+	color: light-dark(var(--mantine-color-sec-6), var(--mantine-color-pri-6));
 	transition: 0.25s all ease;
 }

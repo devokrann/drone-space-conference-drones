@@ -13,7 +13,7 @@ export default function Local({ data }: typeLocal) {
 		<Stack align="center" justify="space-between" pos={"relative"} className={classes.card}>
 			<Stack gap={"md"}>
 				<Stack gap={0} align="center">
-					<Text component="h3" ta={"center"} tt={"uppercase"} fw={500}>
+					<Text component="h3" ta={"center"} tt={"uppercase"} fw={500} c={"pri.6"}>
 						{data.title}
 					</Text>
 					<Text component="p" ta={"center"} fz={36} fw={700} className={classes.price}>
@@ -27,8 +27,8 @@ export default function Local({ data }: typeLocal) {
 					{data.desc}
 				</Text>
 			</Stack>
-			<Button fullWidth tt={"uppercase"} component="a" href={link} target="_blank">
-				Buy Now
+			<Button fullWidth component="a" href={link} target="_blank" color={"sec"}>
+				Purchase {data.title} Ticket
 			</Button>
 		</Stack>
 	);

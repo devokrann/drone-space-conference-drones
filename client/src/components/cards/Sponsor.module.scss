@@ -1,6 +1,11 @@
 .card {
-	border: 1px solid var(--mantine-color-gray-2);
-	border-radius: var(--mantine-radius-sm);
+	border: 1px solid light-dark(var(--mantine-color-gray-3), transparent);
+	border-radius: var(--mantine-radius-md);
+	overflow: hidden;
+	padding-bottom: var(--mantine-spacing-md);
+	background-color: var(--mantine-color-white);
+	height: 100%;
+	position: relative;
 
 	&:hover {
 		.name {
@@ -15,4 +20,14 @@
 .name {
 	opacity: 0;
 	transition: 0.25s all ease;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding-bottom: var(--mantine-spacing-xs);
+	color: light-dark(var(--mantine-color-gray-6));
+	font-weight: 500;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: var(--mantine-font-size-xs);
 }

@@ -1,5 +1,5 @@
 .card {
-	border-radius: var(--mantine-radius-sm);
+	border-radius: var(--mantine-radius-md);
 	background-color: var(--mantine-color-sec-light);
 	padding: var(--mantine-spacing-xl);
 	transition: 0.25s all ease;
@@ -9,8 +9,8 @@
 		cursor: pointer;
 
 		.icon {
-			background-color: var(--mantine-color-sec-light);
-			color: var(--mantine-color-sec-6);
+			background-color: light-dark(var(--mantine-color-sec-light), var(--mantine-color-gray-light));
+			color: light-dark(var(--mantine-color-sec-6), inherit);
 		}
 
 		.title {
@@ -29,7 +29,7 @@
 }
 
 .title {
-	color: var(--mantine-color-sec-6);
+	color: light-dark(var(--mantine-color-sec-6), inherit);
 	transition: 0.25s all ease;
 }
 
