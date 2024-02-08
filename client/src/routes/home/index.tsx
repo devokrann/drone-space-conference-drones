@@ -28,7 +28,7 @@ export default function Home() {
 			<Layout.Page hero={<Partial.Hero.Home />}>
 				<Partial.Cta.Industries />
 
-				<Layout.Section containerized padded bg={"gray.1"}>
+				<Layout.Section containerized padded>
 					<Stack gap={48}>
 						<Component.Heading.Main title={{ plain: "Event", highlight: "Overview" }} />
 						<Text ta={"center"}>
@@ -74,7 +74,7 @@ export default function Home() {
 									</Title>
 									<Grid>
 										{data.structure.target[1].desc.map(target => (
-											<Grid.Col span={{ base: 6, xs: 6, md: 4 }} key={target}>
+											<Grid.Col span={{ base: 12, xs: 6, md: 4 }} key={target}>
 												<Group align="center" gap={"xs"}>
 													<IconChevronRight
 														size={16}
@@ -141,7 +141,7 @@ export default function Home() {
 
 				<Partial.Cta.Social image={image.gallery.expo.yr2022.image2} />
 
-				<Layout.Section containerized padded bg={"gray.1"}>
+				<Layout.Section containerized padded>
 					<Stack gap={48}>
 						<Component.Heading.Main
 							title={{ plain: "Our Proud", highlight: "Partners & Sponsors" }}

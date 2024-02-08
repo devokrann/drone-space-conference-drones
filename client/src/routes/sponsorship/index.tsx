@@ -27,7 +27,7 @@ export default function Sponsorship() {
 					</Text>
 				</Layout.Section>
 
-				<Layout.Section containerized padded bg={"gray.1"}>
+				<Layout.Section containerized padded>
 					<Stack gap={48}>
 						<Component.Heading.Main
 							title={{
@@ -43,7 +43,7 @@ export default function Sponsorship() {
 							representatives within this community. It is an opportunity to showcase your brand to the
 							most influential audiences. Should you have any queries or would like to discuss further
 							about the proposed sponsorship packages, kindly contact Conference Secretariat at{" "}
-							<Anchor href="mailto:info@drone-expo.co.ke" fw={500}>
+							<Anchor href="mailto:info@drone-expo.co.ke" fw={500} c={"pri.6"}>
 								info@drone-expo.co.ke
 							</Anchor>
 							.
@@ -56,7 +56,7 @@ export default function Sponsorship() {
 									p={"xl"}
 									bg={"white"}
 									style={{
-										borderRadius: 999,
+										borderRadius: "var(--mantine-radius-md)",
 										overflow: "hidden",
 									}}
 								>
@@ -64,7 +64,11 @@ export default function Sponsorship() {
 								</Center>
 							</Grid.Col>
 							<Grid.Col span={{ base: 12, xs: 7 }}>
-								<Stack gap={"xl"}>
+								<Stack
+									gap={"xl"}
+									align={{ base: "center", xs: "start" }}
+									ta={{ base: "center", xs: "start" }}
+								>
 									<Text component="p">
 										Let your innovative solutions shine alongside those from the world’s leading
 										corporations. Obtain the chance to set the tone, when it comes to the future
@@ -83,7 +87,7 @@ export default function Sponsorship() {
 										component={"a"}
 										href={"#opportunities"}
 									>
-										See Sponsorship Packages
+										Sponsorship Packages
 									</Button>
 								</Stack>
 							</Grid.Col>
@@ -110,7 +114,7 @@ export default function Sponsorship() {
 						<Stack gap={"xl"}>
 							<Grid align="stretch" justify="center">
 								{data.packages.sponsorship.map(item => (
-									<Grid.Col span={{ base: 12, sm: 6 }} key={item.price}>
+									<Grid.Col span={{ base: 12, xs: 6 }} key={item.price}>
 										<Component.Card.Ticket.Sponsor data={item} />
 									</Grid.Col>
 								))}
@@ -128,7 +132,7 @@ export default function Sponsorship() {
 					desc="Branded WIFI login for all attendees | Logo featured in printed show program, onsite signage, and recognition during opening keynote | A custom content article on Drone Tech & Data Expo Website | Inclusion in post-event dedicated email to all attendees featuring your company, link to featured product, and contact details for prospective customers to follow up with."
 				/>
 
-				<Layout.Section containerized padded bg={"gray.1"}>
+				<Layout.Section containerized padded>
 					<Stack gap={48}>
 						<Component.Heading.Main
 							title={{
@@ -143,7 +147,7 @@ export default function Sponsorship() {
 							progress, and our partners for the 2022 Kenya Drone Expo exemplified this principle.
 						</Text>
 						<Container size={"sm"}>
-							<Partial.Form.Application />
+							<Partial.Form.Contact defaultInquiry="Sponsorship Application" />
 						</Container>
 					</Stack>
 				</Layout.Section>

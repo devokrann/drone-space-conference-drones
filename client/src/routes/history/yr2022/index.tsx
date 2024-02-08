@@ -33,7 +33,7 @@ export default function Yr2022() {
 						</Text>
 					</Stack>
 				</Layout.Section>
-				<Layout.Section containerized padded bg={"pri.0"}>
+				<Layout.Section containerized padded>
 					<Stack gap={48}>
 						<Component.Heading.Main title={{ plain: "2022", highlight: "Exhibitors" }} />
 						<Text ta={"center"}>
@@ -47,7 +47,7 @@ export default function Yr2022() {
 								{data.exhibition.exhibitors.yr2022.map(
 									exhibitor =>
 										data.exhibition.exhibitors.yr2022.indexOf(exhibitor) < 3 && (
-											<Grid.Col span={{ base: 12, xs: 6, md: 4 }} key={exhibitor.name}>
+											<Grid.Col span={{ base: 12, xs: 4 }} key={exhibitor.name}>
 												<Component.Card.Exhibitor data={exhibitor} w={exhibitor.width} />
 											</Grid.Col>
 										)
@@ -55,7 +55,7 @@ export default function Yr2022() {
 							</Grid>
 							<Text component="p" ta={"center"}>
 								See the full{" "}
-								<Anchor component={Link} to="exhibitors" fw={500} c={"pri"}>
+								<Anchor component={Link} to="exhibitors" fw={500} c={"pri.6"}>
 									exhibitors list
 								</Anchor>
 								.
@@ -63,7 +63,7 @@ export default function Yr2022() {
 						</Stack>
 					</Stack>
 				</Layout.Section>
-				<Layout.Section containerized padded bg={"sec.0"}>
+				<Layout.Section containerized padded>
 					<Stack gap={48}>
 						<Component.Heading.Main
 							title={{ plain: "2022", highlight: "Sponsors & Partners" }}
@@ -78,7 +78,7 @@ export default function Yr2022() {
 							{data.sponsors.yr2022
 								.filter(item => item.type === "platinum")
 								.map(sponsor => (
-									<Grid.Col span={{ base: 12, xs: 6, sm: 4 }} key={sponsor.name}>
+									<Grid.Col span={{ base: 12, xs: 4 }} key={sponsor.name}>
 										<Component.Card.Sponsor data={sponsor} />
 									</Grid.Col>
 								))}
@@ -101,7 +101,7 @@ export default function Yr2022() {
 									speaker =>
 										speaker.bio &&
 										data.speakers.indexOf(speaker) < 3 && (
-											<Grid.Col span={{ base: 12, xs: 6, md: 4 }} key={speaker.name}>
+											<Grid.Col span={{ base: 12, xs: 4 }} key={speaker.name}>
 												<Component.Card.Speaker.Listing data={speaker} />
 											</Grid.Col>
 										)
@@ -109,7 +109,7 @@ export default function Yr2022() {
 							</Grid>
 							<Text component="p" ta={"center"}>
 								See the full{" "}
-								<Anchor component={Link} to="speakers" fw={500} c={"pri"}>
+								<Anchor component={Link} to="speakers" fw={500} c={"pri.6"}>
 									speakers list
 								</Anchor>
 								.
@@ -117,7 +117,7 @@ export default function Yr2022() {
 						</Stack>
 					</Stack>
 				</Layout.Section>
-				<Layout.Section padded bg={"gray.1"}>
+				<Layout.Section padded>
 					<Stack gap={48}>
 						<Component.Heading.Main
 							title={{ plain: "2022", highlight: "Moments" }}
@@ -131,8 +131,8 @@ export default function Yr2022() {
 							<Grid gutter={{ base: "xs", xs: 0 }}>
 								{data.gallery.yr2022.reverse().map(
 									image =>
-										data.gallery.yr2022.indexOf(image) < 8 && (
-											<Grid.Col span={{ base: 12, xs: 6, sm: 4, md: 3 }} key={image.title}>
+										data.gallery.yr2022.indexOf(image) < 12 && (
+											<Grid.Col span={{ base: 6, xs: 4, md: 3 }} key={image.title}>
 												<Component.Modal.Gallery data={image} />
 											</Grid.Col>
 										)
@@ -140,7 +140,7 @@ export default function Yr2022() {
 							</Grid>
 							<Text component="p" ta={"center"}>
 								See the full{" "}
-								<Anchor component={Link} to="gallery" fw={500} c={"pri"}>
+								<Anchor component={Link} to="gallery" fw={500} c={"pri.6"}>
 									photo catalogue
 								</Anchor>
 								.

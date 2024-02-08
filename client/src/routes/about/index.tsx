@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Container, Grid, List, Stack, Text, Title } from "@mantine/core";
+import { Container, Grid, Image, List, Stack, Text, Title } from "@mantine/core";
 
 import { IconChevronRight } from "@tabler/icons-react";
 
@@ -26,64 +26,72 @@ export default function About() {
 							Artificial Intelligence.
 						</Text>
 						<Text component="p" fw={700} ta={"center"} fz={"xl"} c={"sec"} w={{ base: "100%" }}>
-							<Text component="span" c={"pri"} fz={"inherit"} fw={"inherit"}>
+							<Text component="span" c={"pri.6"} fz={"inherit"} fw={"inherit"}>
 								Theme
 							</Text>
 							: Unlocking Opportunities of{" "}
-							<Text component="span" c={"pri"} fz={"inherit"} fw={"inherit"}>
+							<Text component="span" c={"pri.6"} fz={"inherit"} fw={"inherit"}>
 								Drones
 							</Text>
 							,{" "}
-							<Text component="span" c={"pri"} fz={"inherit"} fw={"inherit"}>
+							<Text component="span" c={"pri.6"} fz={"inherit"} fw={"inherit"}>
 								Data
 							</Text>{" "}
 							&{" "}
-							<Text component="span" c={"pri"} fz={"inherit"} fw={"inherit"}>
+							<Text component="span" c={"pri.6"} fz={"inherit"} fw={"inherit"}>
 								Artificial Intelligence
 							</Text>
 						</Text>
-						<Grid gutter={"xl"}>
-							<Grid.Col span={{ base: 12, xs: 6 }}>
-								<Component.Overlay.Image
-									image1={image.gallery.conference.yr2022.image2}
-									image2={image.gallery.conference.yr2022.image3}
-									// orientation={"end"}
-									height={440}
-								/>
+						<Grid gutter={48}>
+							<Grid.Col span={{ base: 12 }}>
+								<Grid gutter={48}>
+									<Grid.Col span={{ base: 12, xs: 6 }}>
+										<Text component="p" ta={{ base: "center", xs: "end" }}>
+											The Expo and conference will provide the exhibitors, investors, Venture
+											Capitalists, Government, Trade agencies, Tech Startups and visitors with a
+											platform to penetrate the region’s market for UAS. This will be Kenya’s and
+											East Africa’s leading Drone Expo show and conference focused on commercial
+											drone technology and data integration in these industries and fields:
+										</Text>
+									</Grid.Col>
+									<Grid.Col span={{ base: 12, xs: 6 }}>
+										<Image src={image.gallery.conference.yr2022.image2} />
+									</Grid.Col>
+								</Grid>
 							</Grid.Col>
-							<Grid.Col span={{ base: 12, xs: 6 }}>
-								<Stack gap={"xl"}>
-									<Text component="p">
-										The Expo and conference will provide the exhibitors, investors, Venture
-										Capitalists, Government, Trade agencies, Tech Startups and visitors with a
-										platform to penetrate the region’s market for UAS. This will be Kenya’s and East
-										Africa’s leading Drone Expo show and conference focused on commercial drone
-										technology and data integration in these industries and fields:
-									</Text>
-									<List
-										size="xs"
-										spacing={"xs"}
-										center
-										icon={
-											<IconChevronRight size={16} stroke={2} color="var(--mantine-color-pri-6)" />
-										}
-									>
-										<Grid>
-											{data.structure.industries.map(item => (
-												<Grid.Col
-													key={item}
-													span={{
-														base: 6,
-														xs: 12,
-														md: 6,
-													}}
-												>
-													<List.Item fw={500}>{item}</List.Item>
-												</Grid.Col>
-											))}
-										</Grid>
-									</List>
-								</Stack>
+							<Grid.Col span={{ base: 12 }}>
+								<Grid gutter={48}>
+									<Grid.Col span={{ base: 12, xs: 6 }} order={{ base: 2, xs: 1 }}>
+										<Image src={image.gallery.conference.yr2022.image3} />
+									</Grid.Col>
+									<Grid.Col span={{ base: 12, xs: 6 }} order={{ base: 1, xs: 2 }}>
+										<List
+											size="xs"
+											center
+											icon={
+												<IconChevronRight
+													size={16}
+													stroke={2}
+													color="var(--mantine-color-pri-6)"
+												/>
+											}
+										>
+											<Grid gutter={{ base: 4, md: "xs" }}>
+												{data.structure.industries.map(item => (
+													<Grid.Col
+														key={item}
+														span={{
+															base: 12,
+															md: 6,
+														}}
+													>
+														<List.Item fw={500}>{item}</List.Item>
+													</Grid.Col>
+												))}
+											</Grid>
+										</List>
+									</Grid.Col>
+								</Grid>
 							</Grid.Col>
 						</Grid>
 					</Stack>

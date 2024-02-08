@@ -15,7 +15,7 @@ export default function Overview() {
 	return (
 		<Layout.Body header={<Partial.Header.Main />} nav={<Partial.Navbar.Main />} footer={<Partial.Footer.Main />}>
 			<Layout.Page hero={<Partial.Hero.Route image={image.gallery.conference.yr2022.image4} />}>
-				<Layout.Section containerized padded bg={"gray.1"}>
+				<Layout.Section containerized padded>
 					<Stack gap={48}>
 						<Text ta={"center"}>
 							Welcome to the Drone Tech & Data Expo 2024, an immersive and enlightening experience that
@@ -27,19 +27,19 @@ export default function Overview() {
 							collective impact on various sectors.
 						</Text>
 						<Text component="p" fw={700} ta={"center"} fz={"xl"} c={"sec"} w={{ base: "100%" }}>
-							<Text component="span" c={"pri"} fz={"inherit"} fw={"inherit"}>
+							<Text component="span" c={"pri.6"} fz={"inherit"} fw={"inherit"}>
 								Theme
 							</Text>
 							: Unlocking Opportunities of{" "}
-							<Text component="span" c={"pri"} fz={"inherit"} fw={"inherit"}>
+							<Text component="span" c={"pri.6"} fz={"inherit"} fw={"inherit"}>
 								Drones
 							</Text>
 							,{" "}
-							<Text component="span" c={"pri"} fz={"inherit"} fw={"inherit"}>
+							<Text component="span" c={"pri.6"} fz={"inherit"} fw={"inherit"}>
 								Data
 							</Text>{" "}
 							&{" "}
-							<Text component="span" c={"pri"} fz={"inherit"} fw={"inherit"}>
+							<Text component="span" c={"pri.6"} fz={"inherit"} fw={"inherit"}>
 								Artificial Intelligence
 							</Text>
 						</Text>
@@ -64,7 +64,7 @@ export default function Overview() {
 					</Stack>
 				</Layout.Section>
 
-				<Layout.Section containerized padded bg={"gray.1"}>
+				<Layout.Section containerized padded>
 					<Stack gap={48}>
 						<Component.Heading.Main
 							title={{ plain: "Event", highlight: "Objectives" }}
@@ -114,10 +114,10 @@ export default function Overview() {
 					</Stack>
 				</Layout.Section>
 
-				<Layout.Section containerized padded bg={"gray.1"}>
+				<Layout.Section containerized padded>
 					<Stack gap={48}>
 						<Component.Heading.Main
-							title={{ plain: "Target", highlight: "Audience" }}
+							title={{ plain: "Who", highlight: "Attends?" }}
 							icon={{ icon: IconTargetArrow }}
 						/>
 						<Text ta={"center"}>

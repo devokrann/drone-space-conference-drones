@@ -25,9 +25,14 @@ export default function BoothsLocal() {
 									</Grid.Col>
 								))}
 						</Grid>
-						<Text component="p" ta={"center"} c={"sec"}>
+						<Text component="p" ta={"center"}>
 							Want to book <strong>Non-Kenyan Company</strong> booths instead? You can find them{" "}
-							<Anchor component={Link} to={"/exhibition/booths/international-booths"} fw={500}>
+							<Anchor
+								component={Link}
+								to={"/exhibition/booths/international-booths"}
+								fw={500}
+								c={"pri.6"}
+							>
 								here
 							</Anchor>
 							.

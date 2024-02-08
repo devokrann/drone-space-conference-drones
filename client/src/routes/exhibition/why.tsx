@@ -17,7 +17,7 @@ export default function WhyExhibit() {
 	return (
 		<Layout.Body header={<Partial.Header.Main />} nav={<Partial.Navbar.Main />} footer={<Partial.Footer.Main />}>
 			<Layout.Page hero={<Partial.Hero.Route image={image.gallery.expo.yr2022.image6} />}>
-				<Layout.Section containerized padded bg={"gray.1"}>
+				<Layout.Section containerized padded>
 					<Stack gap={48}>
 						<Text ta={"center"}>
 							Unlock unparalleled opportunities for exposure, collaboration, and growth by becoming an
@@ -65,7 +65,6 @@ export default function WhyExhibit() {
 										<Button
 											fullWidth
 											component={Link}
-											radius={mobile ? "sm" : "xl"}
 											to={"/exhibition/booths/local-booths"}
 											tt={"uppercase"}
 										>
@@ -75,7 +74,6 @@ export default function WhyExhibit() {
 											fullWidth
 											color="sec"
 											component={Link}
-											radius={mobile ? "sm" : "xl"}
 											to={"/exhibition/booths/international-booths"}
 											tt={"uppercase"}
 										>

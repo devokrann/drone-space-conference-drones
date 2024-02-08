@@ -15,7 +15,7 @@ export default function Exhibitors2022() {
 	return (
 		<Layout.Body header={<Partial.Header.Main />} nav={<Partial.Navbar.Main />} footer={<Partial.Footer.Main />}>
 			<Layout.Page hero={<Partial.Hero.Route image={image.gallery.expo.yr2022.image9} />}>
-				<Layout.Section containerized padded bg={"gray.1"}>
+				<Layout.Section containerized padded>
 					<Stack gap={48}>
 						<Component.Heading.Main
 							title={{ plain: "2022", highlight: "Exhibitors" }}
@@ -29,7 +29,7 @@ export default function Exhibitors2022() {
 						</Text>
 						<Grid align="stretch">
 							{data.exhibition.exhibitors.yr2022.map(exhibitor => (
-								<Grid.Col span={{ base: 12, xs: 6, md: 4 }} key={exhibitor.name}>
+								<Grid.Col span={{ base: 12, xs: 4 }} key={exhibitor.name}>
 									<Component.Card.Exhibitor data={exhibitor} w={exhibitor.width} />
 								</Grid.Col>
 							))}
