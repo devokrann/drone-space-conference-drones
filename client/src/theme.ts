@@ -1,4 +1,4 @@
-import { Container, createTheme } from "@mantine/core";
+import { Button, Container, createTheme } from "@mantine/core";
 
 const projectName = createTheme({
 	//font
@@ -45,6 +45,11 @@ const projectName = createTheme({
 		Container: Container.extend({
 			defaultProps: {
 				size: "lg",
+			},
+		}),
+		Button: Button.extend({
+			defaultProps: {
+				radius: "xl",
 			},
 		}),
 	},

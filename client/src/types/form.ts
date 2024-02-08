@@ -2,9 +2,20 @@ export interface typeContact {
 	fname: string;
 	lname: string;
 	email: string;
-	phone: string;
 	subject: string;
+
+	companyName: string;
+
+	universityName: string;
+	contactPerson: string;
+	contactEmail: string;
+	contactPhoneNumber: string;
+
+	boothPackage: string;
+	boothSize: string;
+
 	message: string;
+	policy: boolean;
 }
 
 export interface typeSignup {
