@@ -6,7 +6,7 @@ import heroes from "./heroes";
 import industries from "./industries";
 import links from "./links";
 import packages from "./packages";
-import schedule from "./schedule";
+import program from "./program";
 import speakers from "./speakers";
 import sponsors from "./sponsors";
 import stats from "./stats";
@@ -21,7 +21,7 @@ const data = {
 	industries: industries,
 	links: links,
 	packages: packages,
-	schedule: schedule,
+	program: program,
 	speakers: speakers,
 	sponsors: sponsors,
 	stats: stats,
