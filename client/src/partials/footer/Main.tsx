@@ -87,14 +87,7 @@ const details = {
 
 export default function Main() {
 	return (
-		<Box
-			style={theme => ({
-				color: theme.white,
-				backgroundColor: theme.colors.sec[6],
-				position: "relative",
-				borderTop: `2px solid ${theme.colors.pri[6]}`,
-			})}
-		>
+		<Box className={classes.footer}>
 			<Container size={"lg"} py={36}>
 				<Grid>
 					<Grid.Col span={{ base: 12, md: 5 }}>
@@ -201,7 +194,7 @@ export default function Main() {
 					<Grid.Col span={{ base: 12, md: 12 }}>
 						<Text ta={{ base: "center", md: "center" }} fz={"inherit"}>
 							Copyright &copy; 2024{" "}
-							<Anchor component="span" fw={500} fz={"inherit"}>
+							<Anchor component="span" fw={500} fz={"inherit"} c={"pri.6"}>
 								Drone & Data Expo
 							</Anchor>
 							. All rights reserved.

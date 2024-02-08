@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Anchor, Button, Checkbox, Grid, Group, Text, TextInput, Textarea } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { hasLength, useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconX } from "@tabler/icons-react";
 
@@ -9,8 +9,10 @@ import utils from "../../utilities";
 
 import emailjs from "@emailjs/browser";
 
-import classesSuccess from "@src/styles/notifications/Success.module.scss";
-import classesFail from "@src/styles/notifications/Fail.module.scss";
+import Component from "@src/components";
+
+import notificationSuccess from "@src/styles/notifications/Success.module.scss";
+import notificationFail from "@src/styles/notifications/Fail.module.scss";
 
 interface typeForm {
 	universityName: string;
@@ -39,7 +41,7 @@ export default function Pavilion() {
 			contactPerson: value => utils.validator.form.special.text(value, 2, 24),
 			contactEmail: value => utils.validator.form.special.email(value),
 			contactPhoneNumber: value => utils.validator.form.special.phone(value),
-			universityDescription: value => utils.validator.form.special.text(value, 5, 2048),
+			universityDescription: hasLength({ min: 10 }, "Value must have 10  or more characters"),
 			policy: value => utils.validator.form.generic.isEmpty.checkbox(value),
 		},
 	});
@@ -47,8 +49,8 @@ export default function Pavilion() {
 	const parse = (data: typeForm) => {
 		let { universityName, contactPerson, contactEmail, contactPhoneNumber, universityDescription } = data;
 
-		universityName = utils.parser.string.capitalize.word(universityName);
-		contactPerson = utils.parser.string.capitalize.word(contactPerson);
+		universityName = utils.parser.string.capitalize.words(universityName);
+		contactPerson = utils.parser.string.capitalize.words(contactPerson);
 		contactEmail = contactEmail.toLowerCase();
 		universityDescription = utils.parser.string.capitalize.word(universityDescription);
 
@@ -72,32 +74,48 @@ export default function Pavilion() {
 			.send("service_gmail", "university_pavilion", parse(data), "Qf6uaGYBS0fakVDua")
 			.then(() =>
 				notifications.show({
+					id: "send-success",
+					withCloseButton: false,
+					icon: <IconCheck size={16} stroke={1.5} />,
+					autoClose: 5000,
 					title: "Sent",
-					message: "Message delivered. One of our representatives will be in touch within 24 hours.",
-					color: "sec",
-					classNames: classesSuccess,
-					icon: <IconCheck size={16} stroke={2} />,
+					message: "Someone will get back to you within 24 hours",
+					classNames: {
+						root: notificationSuccess.root,
+						icon: notificationSuccess.icon,
+						description: notificationSuccess.description,
+						title: notificationSuccess.title,
+					},
 				})
 			)
 			.then(() => form.reset())
 			.then(() => setSending(false))
-			.catch(() => {
+			.catch(error => {
 				notifications.show({
-					title: `Send Failed`,
-					message: `Sorry, an error occured and we could not deliver your request.`,
-					color: "pri",
-					classNames: classesFail,
-					icon: <IconX size={16} stroke={2} />,
+					id: "send-fail",
+					withCloseButton: false,
+					icon: <IconX size={16} stroke={1.5} />,
+					autoClose: 5000,
+					title: "Send Failed",
+					message: `Error: ${error.message}`,
+					classNames: {
+						root: notificationFail.root,
+						icon: notificationFail.icon,
+						description: notificationFail.description,
+						title: notificationFail.title,
+					},
 				});
 				setSending(false);
 			});
+
+		setSending(false);
 	};
 
 	return (
 		<form onSubmit={form.onSubmit(values => onSubmit(values))} noValidate>
-			<Grid c={"sec"}>
+			<Grid>
 				<Grid.Col span={{ base: 12, xs: 6, sm: 12, md: 6 }}>
-					<TextInput
+					<Component.Input.Text
 						required
 						label="University Name"
 						placeholder="Enter your university name here"
@@ -105,7 +123,7 @@ export default function Pavilion() {
 					/>
 				</Grid.Col>
 				<Grid.Col span={{ base: 12, xs: 6, sm: 12, md: 6 }}>
-					<TextInput
+					<Component.Input.Text
 						required
 						label="Contact Person"
 						placeholder="Enter your name(s) here"
@@ -113,7 +131,7 @@ export default function Pavilion() {
 					/>
 				</Grid.Col>
 				<Grid.Col span={{ base: 12, xs: 6, sm: 12, md: 6 }}>
-					<TextInput
+					<Component.Input.Text
 						required
 						label="Contact Email"
 						description="We will never share your email"
@@ -121,8 +139,8 @@ export default function Pavilion() {
 						{...form.getInputProps("contactEmail")}
 					/>
 				</Grid.Col>
-				<Grid.Col span={{ base: 12, xs: 6 }}>
-					<TextInput
+				<Grid.Col span={{ base: 12, xs: 6, sm: 12, md: 6 }}>
+					<Component.Input.Text
 						required
 						label="Contact Phone Number"
 						description="We will never share your phone number"
@@ -131,7 +149,7 @@ export default function Pavilion() {
 					/>
 				</Grid.Col>
 				<Grid.Col span={12}>
-					<Textarea
+					<Component.Input.Textarea
 						required
 						label="University Description"
 						description={
@@ -148,11 +166,11 @@ export default function Pavilion() {
 					<Checkbox
 						required
 						defaultChecked={false}
-						size="xs"
+						radius={"xl"}
 						label={
 							<Text component="p" fz={"inherit"}>
 								I have read and accept the 'Drone Tech & Data Expo'{" "}
-								<Anchor href="#privacy-policy" fw={500} fz={"inherit"}>
+								<Anchor href="#privacy-policy" fw={500} fz={"inherit"} c={"pri.6"}>
 									privacy policy
 								</Anchor>
 								.
@@ -162,21 +180,18 @@ export default function Pavilion() {
 					/>
 				</Grid.Col>
 				<Grid.Col span={12} mt={"xl"}>
-					<Group align="center" grow>
-						<Button
-							type="reset"
-							color="sec"
-							tt={"uppercase"}
-							fz={"xs"}
-							onClick={form.reset}
-							disabled={sending}
-						>
-							Clear
-						</Button>
-						<Button type="submit" tt={"uppercase"} fz={"xs"} loading={sending}>
-							Send
-						</Button>
-					</Group>
+					<Grid>
+						<Grid.Col span={{ base: 12, xs: 6 }}>
+							<Button type="reset" fullWidth onClick={form.reset} disabled={sending}>
+								Clear
+							</Button>
+						</Grid.Col>
+						<Grid.Col span={{ base: 12, xs: 6 }}>
+							<Button type="submit" fullWidth color="sec" loading={sending}>
+								Send
+							</Button>
+						</Grid.Col>
+					</Grid>
 				</Grid.Col>
 			</Grid>
 		</form>

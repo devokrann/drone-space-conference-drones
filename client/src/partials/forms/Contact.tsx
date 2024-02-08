@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOMServer from "react-dom/server";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
 import { Anchor, Box, Button, Checkbox, Grid, Input, Select, Text, TextInput, Textarea } from "@mantine/core";
-import { isNotEmpty, useForm } from "@mantine/form";
+import { hasLength, isNotEmpty, useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 
 import { IconCheck, IconX } from "@tabler/icons-react";
@@ -13,9 +13,19 @@ import { IMaskInput } from "react-imask";
 
 import postContact from "@src/apis/postContact";
 
+import emailjs from "@emailjs/browser";
+
 import email from "../email";
 
-export default function Contact() {
+import Component from "@src/components";
+
+import utils from "@src/utilities";
+
+import notificationSuccess from "@src/styles/notifications/Success.module.scss";
+import notificationFail from "@src/styles/notifications/Fail.module.scss";
+import { typeContact } from "@src/types/form";
+
+export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: string }) {
 	const [submitted, setSubmitted] = useState(false);
 
 	const form = useForm({
@@ -23,84 +33,173 @@ export default function Contact() {
 			fname: "",
 			lname: "",
 			email: "",
-			phone: "",
-			subject: "",
+			subject: defaultInquiry,
+
+			companyName: "",
+
+			universityName: "",
+			contactPerson: "",
+			contactEmail: "",
+			contactPhoneNumber: "",
+
+			boothPackage: "",
+			boothSize: "",
+
 			message: "",
 			policy: false,
 		},
 
 		validate: {
-			fname: value => (value.trim().length < 2 ? "At least 2 letters" : null),
-			lname: value => (value.trim().length < 2 ? "At least 2 letters" : null),
-			email: value => (/^\S+@\S+$/.test(value.trim()) ? null : "Invalid email"),
-			phone: value => (value && value.trim().length < 18 ? "Invalid Phone Number" : null),
-			subject: value => (value.trim().length < 1 ? "Please select a topic" : null),
-			message: value => (value.trim().length < 10 ? "Message Too Short" : null),
+			fname: value => utils.validator.form.special.text(value, 2, 24),
+			lname: value => utils.validator.form.special.text(value, 2, 24),
+			email: value => utils.validator.form.special.email(value),
+
+			companyName: (value, values) =>
+				(values.boothPackage == "Corporates Booth" || values.subject == "Sponsorship Application") &&
+				utils.validator.form.special.text(value, 2, 24),
+
+			universityName: (value, values) =>
+				values.subject == "University Pavilion Application" && utils.validator.form.special.text(value, 2, 24),
+			contactPerson: (value, values) =>
+				(values.subject == "University Pavilion Application" || values.subject == "Sponsorship Application") &&
+				utils.validator.form.special.text(value, 2, 24),
+			contactEmail: (value, values) =>
+				(values.subject == "University Pavilion Application" || values.subject == "Sponsorship Application") &&
+				utils.validator.form.special.email(value),
+			contactPhoneNumber: (value, values) =>
+				(values.subject == "University Pavilion Application" || values.subject == "Sponsorship Application") &&
+				utils.validator.form.special.phone(value),
+
+			boothPackage: (value, values) =>
+				values.subject == "Booth Registration" && (value.trim().length < 1 ? "Please select a package" : null),
+			boothSize: (value, values) =>
+				values.subject == "Booth Registration" && (value.trim().length < 1 ? "Please select a size" : null),
+
+			subject: value => (value.trim().length < 1 ? "Please select a line of inquiry" : null),
+			message: hasLength({ min: 10 }, "At least 10 characters"),
 			policy: isNotEmpty("You must accept to proceed"),
 		},
 	});
 
-	const handleSubmit = async () => {
+	const parse = (rawData: typeContact) => {
+		let {
+			fname,
+			lname,
+			email,
+
+			companyName,
+
+			universityName,
+			contactPerson,
+			contactEmail,
+			contactPhoneNumber,
+
+			boothPackage,
+			boothSize,
+
+			subject,
+			message,
+			policy,
+		} = rawData;
+
+		fname = utils.parser.string.capitalize.word(fname);
+		lname = utils.parser.string.capitalize.word(lname);
+		email = contactEmail.toLowerCase();
+
+		companyName = utils.parser.string.capitalize.words(companyName);
+
+		universityName = utils.parser.string.capitalize.words(universityName);
+		contactPerson = utils.parser.string.capitalize.words(contactPerson);
+		contactEmail = contactEmail.toLowerCase();
+
+		const parsedData = {
+			fname,
+			lname,
+			email,
+
+			companyName: companyName.length > 1 ? `Company Name: ${companyName}` : "",
+
+			universityName: universityName.length > 1 ? `University Name: ${universityName}` : "",
+			contactPerson: contactPerson.length > 1 ? `Contact Person: ${contactPerson}` : "",
+			contactEmail: contactEmail.length > 1 ? `Contact Email: ${contactEmail}` : "",
+			contactPhoneNumber: contactPhoneNumber.length > 1 ? `Contact PhoneNumber: ${contactPhoneNumber}` : "",
+
+			boothPackage: boothPackage.length > 1 ? `Booth Package: ${boothPackage}` : "",
+			boothSize: boothSize.length > 1 ? `Booth Size: ${boothSize}` : "",
+
+			subject: subject == "Other" ? "General" : subject,
+			message,
+			policy,
+		};
+
+		return parsedData;
+	};
+
+	const messageContent = () => {
+		switch (form.values.subject) {
+			case "University Pavilion Application":
+				return {
+					label: "University Description",
+					desc: "Brief description of university's focus in Drones, Data, and AI, and any other relevant information.",
+				};
+
+			case "Sponsorship Application":
+				return {
+					label: "Sponsor Description",
+					desc: "Brief description of the organization you represent and any other relevant information.",
+				};
+
+			case "Booth Registration":
+				return {
+					label: "Exhibitior Description",
+					desc: "Brief description of what you would like to showcase and any other relevant information.",
+				};
+
+			default:
+				return { label: "Message", desc: "" };
+		}
+	};
+
+	const handleSubmit = async (formValues: typeContact) => {
 		if (form.isValid()) {
 			setSubmitted(true);
 
-			const templateParams = {
-				fname:
-					form.values.fname.trim().toLowerCase().charAt(0).toUpperCase() +
-					form.values.fname.trim().slice(1).toLowerCase(),
-				lname:
-					form.values.lname.trim().toLowerCase().charAt(0).toUpperCase() +
-					form.values.lname.trim().slice(1).toLowerCase(),
-				email: form.values.email.trim().toLowerCase(),
-				phone: form.values.phone,
-				subject: form.values.subject == "Other" ? "General" : `${form.values.subject}`,
-				message: form.values.message.trim(),
-			};
+			// console.log(parse(formValues));
 
-			// console.log(templateParams);
-
-			const mailOptions = {
-				from: "kibochi.thuku@gmail.com",
-				to: "kibochi.thuku@gmail.com",
-				subject: `${templateParams.subject}`,
-				text: "This is some text",
-				html: ReactDOMServer.renderToString(<email.Contact formValues={templateParams} />),
-			};
-
-			await postContact(templateParams, mailOptions)
+			await emailjs
+				.send("service_gmail", "general_inquiries", parse(formValues), "m4Z8q5FsjIDKvyj1I")
 				.then(() =>
 					notifications.show({
-						id: "contact-form-success",
+						id: "send-success",
 						withCloseButton: false,
-						color: "pri.6",
 						icon: <IconCheck size={16} stroke={1.5} />,
 						autoClose: 5000,
-						title: "Inquiry Sent",
+						title: "Sent",
 						message: "Someone will get back to you within 24 hours",
-						styles: theme => ({
-							icon: {
-								color: theme.colors.sec[4],
-							},
-							closeButton: {
-								color: theme.colors.pri[6],
-							},
-						}),
+						classNames: {
+							root: notificationSuccess.root,
+							icon: notificationSuccess.icon,
+							description: notificationSuccess.description,
+							title: notificationSuccess.title,
+						},
 					})
 				)
 				.then(() => form.reset())
+				.then(() => setSubmitted(false))
 				.catch(error =>
 					notifications.show({
-						id: "contact-form-fail",
-						color: "red",
+						id: "send-fail",
+						withCloseButton: false,
 						icon: <IconX size={16} stroke={1.5} />,
 						autoClose: 5000,
 						title: "Send Failed",
 						message: `Error: ${error.message}`,
-						styles: theme => ({
-							closeButton: {
-								color: theme.colors.red[6],
-							},
-						}),
+						classNames: {
+							root: notificationFail.root,
+							icon: notificationFail.icon,
+							description: notificationFail.description,
+							title: notificationFail.title,
+						},
 					})
 				);
 
@@ -108,64 +207,68 @@ export default function Contact() {
 		}
 	};
 
+	const companyNameInput = (
+		<Grid.Col span={{ base: 12, xs: 6, sm: 12, md: 6 }}>
+			<Component.Input.Text
+				required
+				label="Company Name"
+				description={"The organization you represent"}
+				placeholder="Enter your company name here"
+				{...form.getInputProps("companyName")}
+			/>
+		</Grid.Col>
+	);
+
 	return (
-		<Box component="form" onSubmit={form.onSubmit(handleSubmit)} noValidate>
-			<Grid pb={"md"}>
+		<Box component="form" onSubmit={form.onSubmit(values => handleSubmit(values))} noValidate>
+			<Grid>
 				<Grid.Col span={{ base: 12, sm: 6 }}>
-					<TextInput required label={"First Name"} placeholder="Your Name" {...form.getInputProps("fname")} />
+					<Component.Input.Text
+						required
+						label={"First Name"}
+						placeholder="Your Name"
+						{...form.getInputProps("fname")}
+					/>
 				</Grid.Col>
 				<Grid.Col span={{ base: 12, sm: 6 }}>
-					<TextInput required label={"Last Name"} placeholder="Your Name" {...form.getInputProps("lname")} />
+					<Component.Input.Text
+						required
+						label={"Last Name"}
+						placeholder="Your Name"
+						{...form.getInputProps("lname")}
+					/>
 				</Grid.Col>
 				<Grid.Col span={{ base: 12, sm: 6 }}>
-					<Input.Wrapper label={"Email"} id="email" required>
-						<Input
-							id="email"
-							component={IMaskInput}
-							type="email"
-							placeholder="Your Email"
-							{...form.getInputProps("email")}
-						/>
-					</Input.Wrapper>
+					<Component.Input.Text
+						required
+						label={"Email"}
+						description="We will never share your email"
+						placeholder="Your Email"
+						{...form.getInputProps("email")}
+					/>
 				</Grid.Col>
 				<Grid.Col span={{ base: 12, sm: 6 }}>
-					<Input.Wrapper label={"Phone"} id="phone">
-						<Input
-							component={IMaskInput}
-							id="phone"
-							placeholder="Your Phone"
-							mask={"+(254) 700 000-000"}
-							{...form.getInputProps("phone")}
-						/>
-					</Input.Wrapper>
-				</Grid.Col>
-				<Grid.Col span={12}>
-					<Select
+					<Component.Input.Select
 						label="Inquiry"
 						description="What are you inquiring about?"
-						placeholder="Select an inquiry"
-						// defaultValue={null}
+						// placeholder="Select an inquiry"
+						defaultValue={""}
 						data={[
-							{ label: "Select an Inquiry", value: "" },
 							{
-								label: "Course Enrollment",
-								value: "Course Enrollment",
+								label: "Select an inquiry",
+								value: "",
 							},
 							{
-								label: "Drone Purchase",
-								value: "Drone Purchase",
+								label: "Booth Registration",
+								value: "Booth Registration",
 							},
 							{
-								label: "Callback Request",
-								value: "Callback Request",
+								label: "Sponsorship Application",
+								value: "Sponsorship Application",
 							},
 							{
-								label: "Drone Space Services",
-								value: "Drone Space Services",
-							},
-							{
-								label: "Drone Space Training",
-								value: "Drone Space Training",
+								label: "University Pavilion Application",
+								value: "University Pavilion Application",
 							},
 							{ label: "Other", value: "Other" },
 						]}
@@ -173,9 +276,137 @@ export default function Contact() {
 						{...form.getInputProps("subject")}
 					/>
 				</Grid.Col>
+
+				{form.values.subject == "Sponsorship Application" && companyNameInput}
+
+				<Grid.Col
+					span={{ base: 12, xs: 6, sm: 12, md: 6 }}
+					display={form.values.subject == "University Pavilion Application" ? "block" : "none"}
+				>
+					<Component.Input.Text
+						required
+						label="University Name"
+						description={`The ${
+							form.values.subject == "University Pavilion Application" ? "university" : "organization"
+						} you represent`}
+						placeholder="Enter your university name here"
+						{...form.getInputProps("universityName")}
+					/>
+				</Grid.Col>
+				<Grid.Col
+					span={{ base: 12, xs: 6, sm: 12, md: 6 }}
+					display={
+						form.values.subject == "University Pavilion Application" ||
+						form.values.subject == "Sponsorship Application"
+							? "block"
+							: "none"
+					}
+				>
+					<Component.Input.Text
+						required
+						label="Contact Person"
+						description={`Any PR representative of the ${
+							form.values.subject == "University Pavilion Application" ? "university" : "organization"
+						}`}
+						placeholder="Enter your name(s) here"
+						{...form.getInputProps("contactPerson")}
+					/>
+				</Grid.Col>
+				<Grid.Col
+					span={{ base: 12, xs: 6, sm: 12, md: 6 }}
+					display={
+						form.values.subject == "University Pavilion Application" ||
+						form.values.subject == "Sponsorship Application"
+							? "block"
+							: "none"
+					}
+				>
+					<Component.Input.Text
+						required
+						label="Contact Email"
+						description={`The ${
+							form.values.subject == "University Pavilion Application" ? "university" : "organization"
+						}'s contact email`}
+						placeholder="Enter your email here"
+						{...form.getInputProps("contactEmail")}
+					/>
+				</Grid.Col>
+				<Grid.Col
+					span={{ base: 12, xs: 6, sm: 12, md: 6 }}
+					display={
+						form.values.subject == "University Pavilion Application" ||
+						form.values.subject == "Sponsorship Application"
+							? "block"
+							: "none"
+					}
+				>
+					<Component.Input.Text
+						required
+						label="Contact Phone Number"
+						description={`The ${
+							form.values.subject == "University Pavilion Application" ? "university" : "organization"
+						}'s contact number`}
+						placeholder="Enter your phone number here"
+						{...form.getInputProps("contactPhoneNumber")}
+					/>
+				</Grid.Col>
+				<Grid.Col
+					span={{ base: 12, xs: 6, sm: 12, md: 6 }}
+					display={form.values.subject == "Booth Registration" ? "block" : "none"}
+				>
+					<Component.Input.Select
+						label="Booth Package"
+						defaultValue={""}
+						data={[
+							{
+								label: "Select a booth type",
+								value: "",
+							},
+							{
+								label: "SME'S Booth",
+								value: "SME'S Booth",
+							},
+							{
+								label: "Corporates Booth",
+								value: "Corporates Booth",
+							},
+						]}
+						required
+						{...form.getInputProps("boothPackage")}
+					/>
+				</Grid.Col>
+				<Grid.Col
+					span={{ base: 12, xs: 6, sm: 12, md: 6 }}
+					display={form.values.subject == "Booth Registration" ? "block" : "none"}
+				>
+					<Component.Input.Select
+						label="Booth Size"
+						defaultValue={""}
+						data={[
+							{
+								label: "Select a booth size",
+								value: "",
+							},
+							{
+								label: "3m by 3m (9 sqm)",
+								value: "3m by 3m (9 sqm)",
+							},
+							{
+								label: "6m by 3m (18 sqm)",
+								value: "6m by 3m (18 sqm)",
+							},
+						]}
+						required
+						{...form.getInputProps("boothSize")}
+					/>
+				</Grid.Col>
+
+				{form.values.boothPackage == "Corporates Booth" && companyNameInput}
+
 				<Grid.Col span={12}>
-					<Textarea
-						label={"Message"}
+					<Component.Input.Textarea
+						label={messageContent().label}
+						description={messageContent().desc}
 						required
 						placeholder="Write your message here..."
 						autosize
@@ -186,11 +417,20 @@ export default function Contact() {
 				</Grid.Col>
 				<Grid.Col span={{ base: 12, sm: 12 }}>
 					<Checkbox
-						size="xs"
+						radius={"xl"}
+						ml={"md"}
+						defaultValue={0}
 						label={
 							<Text inherit>
 								I have read and accept the{" "}
-								<Anchor component={Link} to={"#/policy/terms-and-conditions"} inherit fw={500}>
+								<Anchor
+									component={Link}
+									to={"/policy/terms-and-conditions"}
+									inherit
+									fw={500}
+									onClick={e => e.preventDefault()}
+									c={"pri.6"}
+								>
 									terms of use
 								</Anchor>
 								.
@@ -199,22 +439,25 @@ export default function Contact() {
 						{...form.getInputProps("policy", { type: "checkbox" })}
 					/>
 				</Grid.Col>
-				<Grid.Col span={{ base: 12, sm: 6 }}>
-					<Button
-						type="reset"
-						fullWidth
-						color="sec.3"
-						c={"pri"}
-						onClick={() => form.reset()}
-						disabled={submitted}
-					>
-						Clear
-					</Button>
-				</Grid.Col>
-				<Grid.Col span={{ base: 12, sm: 6 }}>
-					<Button type="submit" fullWidth loading={submitted}>
-						{submitted ? "Submitting" : "Submit"}
-					</Button>
+				<Grid.Col span={{ base: 12 }} mt={"xl"}>
+					<Grid>
+						<Grid.Col span={{ base: 12, sm: 6 }}>
+							<Button
+								type="reset"
+								fullWidth
+								color="pri.6"
+								onClick={() => form.reset()}
+								disabled={submitted}
+							>
+								Clear
+							</Button>
+						</Grid.Col>
+						<Grid.Col span={{ base: 12, sm: 6 }}>
+							<Button type="submit" color={"sec"} fullWidth loading={submitted}>
+								{submitted ? "Submitting" : "Submit"}
+							</Button>
+						</Grid.Col>
+					</Grid>
 				</Grid.Col>
 			</Grid>
 		</Box>

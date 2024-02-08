@@ -141,12 +141,7 @@ export default function Main({ data = links }) {
 	});
 
 	return (
-		<Box
-			style={theme => ({
-				boxShadow: theme.shadows.xl,
-				backgroundColor: theme.white,
-			})}
-		>
+		<Box className={classes.navbar}>
 			<Container size="lg" py={"xs"}>
 				<Group align="center" justify="space-between">
 					<Link to={"/"}>

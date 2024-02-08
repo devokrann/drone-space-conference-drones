@@ -44,57 +44,52 @@ const details = {
 
 export default function Main() {
 	return (
-		<Box component="header" bg={"sec.6"} c={"white"}>
-			<Box
-				style={theme => ({
-					borderBottom: `2px solid ${theme.colors.pri[6]}`,
-				})}
-			>
-				<Container size={"lg"} py={8}>
-					<Flex
-						align="center"
-						direction={{ base: "column", xs: "row" }}
-						gap={"xs"}
-						justify={{ base: "center", xs: "space-between" }}
-						fz={"xs"}
-						fw={500}
-					>
-						<Group align="center" gap={8}>
-							{details.left.map(detail => (
-								<Group align="center" gap={8} key={detail.label}>
-									<Text key={detail.label} component="p" fz={"inherit"} fw={"inherit"}>
-										{detail.label}
-									</Text>
+		<Box component="header" className={classes.header}>
+			<Container size={"lg"} py={8}>
+				<Flex
+					align="center"
+					direction={{ base: "column", xs: "row" }}
+					gap={"xs"}
+					justify={{ base: "center", xs: "space-between" }}
+					fz={"xs"}
+					fw={500}
+					ta={{ base: "center" }}
+				>
+					<Group align="center" gap={8}>
+						{details.left.map(detail => (
+							<Group align="center" gap={8} key={detail.label}>
+								<Text key={detail.label} component="p" fz={"inherit"} fw={"inherit"}>
+									{detail.label}
+								</Text>
 
-									{details.left.indexOf(detail) != details.left.length - 1 && (
-										<IconPointFilled size={8} />
-									)}
-								</Group>
-							))}
-						</Group>
-						<Group align="center" gap={8}>
-							{details.right.map(detail => (
-								<Group align="center" gap={8} key={detail.link}>
-									<Text
-										key={detail.link}
-										component={Link}
-										to={detail.link}
-										className={`${detail.type == "flash" ? classes.animate : classes.link}`}
-										fz={"inherit"}
-										fw={"inherit"}
-									>
-										{detail.label}
-									</Text>
+								{details.left.indexOf(detail) != details.left.length - 1 && (
+									<IconPointFilled size={8} />
+								)}
+							</Group>
+						))}
+					</Group>
+					<Group align="center" gap={8}>
+						{details.right.map(detail => (
+							<Group align="center" gap={8} key={detail.link}>
+								<Text
+									key={detail.link}
+									component={Link}
+									to={detail.link}
+									className={`${detail.type == "flash" ? classes.animate : classes.link}`}
+									fz={"inherit"}
+									fw={"inherit"}
+								>
+									{detail.label}
+								</Text>
 
-									{details.right.indexOf(detail) != details.right.length - 1 && (
-										<IconPointFilled size={8} />
-									)}
-								</Group>
-							))}
-						</Group>
-					</Flex>
-				</Container>
-			</Box>
+								{details.right.indexOf(detail) != details.right.length - 1 && (
+									<IconPointFilled size={8} />
+								)}
+							</Group>
+						))}
+					</Group>
+				</Flex>
+			</Container>
 		</Box>
 	);
 }

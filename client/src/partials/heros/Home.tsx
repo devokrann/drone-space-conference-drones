@@ -6,6 +6,8 @@ import counter from "../../components/counters";
 
 import image from "@src/assets/images";
 
+import classes from "./Home.module.scss";
+
 export default function Home() {
 	return (
 		<Box
@@ -52,7 +54,7 @@ export default function Home() {
 								style={{ zIndex: 0 }}
 								ta={"center"}
 							>
-								<Text component="span" c={"pri"} fw={"inherit"} tt={"inherit"} fz={"inherit"}>
+								<Text component="span" c={"pri.6"} fw={"inherit"} tt={"inherit"} fz={"inherit"}>
 									Drone Tech & Data Expo
 								</Text>{" "}
 								2024
@@ -92,19 +94,19 @@ export default function Home() {
 							</Text>
 						</Stack>
 						<Text component="p" fw={700} ta={"center"} fz={"xl"} w={{ base: "100%" }}>
-							<Text component="span" c={"pri"} fz={"inherit"} fw={"inherit"}>
+							<Text component="span" c={"pri.6"} fz={"inherit"} fw={"inherit"}>
 								Theme
 							</Text>
 							: Unlocking Opportunities of{" "}
-							<Text component="span" c={"pri"} fz={"inherit"} fw={"inherit"}>
+							<Text component="span" c={"pri.6"} fz={"inherit"} fw={"inherit"}>
 								Drones
 							</Text>
 							,{" "}
-							<Text component="span" c={"pri"} fz={"inherit"} fw={"inherit"}>
+							<Text component="span" c={"pri.6"} fz={"inherit"} fw={"inherit"}>
 								Data
 							</Text>{" "}
 							&{" "}
-							<Text component="span" c={"pri"} fz={"inherit"} fw={"inherit"}>
+							<Text component="span" c={"pri.6"} fz={"inherit"} fw={"inherit"}>
 								Artificial Intelligence
 							</Text>
 						</Text>
@@ -113,9 +115,10 @@ export default function Home() {
 			</Container>
 			<Box
 				py={"lg"}
-				style={theme => ({
-					backgroundColor: rgba(theme.colors.sec[6], 0.9),
-				})}
+				// style={theme => ({
+				// 	backgroundColor: rgba(theme.colors.sec[6], 0.9),
+				// })}
+				className={classes.countdown}
 			>
 				<Container size={"sm"}>
 					<counter.Countdown />
