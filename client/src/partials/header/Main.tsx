@@ -10,6 +10,7 @@ import Component from "../../components";
 import data from "../../data";
 
 import classes from "./Main.module.scss";
+import Switch from "@src/components/switches";
 
 const details = {
 	left: [
@@ -68,25 +69,28 @@ export default function Main() {
 							</Group>
 						))}
 					</Group>
-					<Group align="center" gap={8}>
-						{details.right.map(detail => (
-							<Group align="center" gap={8} key={detail.link}>
-								<Text
-									key={detail.link}
-									component={Link}
-									to={detail.link}
-									className={`${detail.type == "flash" ? classes.animate : classes.link}`}
-									fz={"inherit"}
-									fw={"inherit"}
-								>
-									{detail.label}
-								</Text>
+					<Group gap={"md"}>
+						<Group align="center" gap={8}>
+							{details.right.map(detail => (
+								<Group align="center" gap={8} key={detail.link}>
+									<Text
+										key={detail.link}
+										component={Link}
+										to={detail.link}
+										className={`${detail.type == "flash" ? classes.animate : classes.link}`}
+										fz={"inherit"}
+										fw={"inherit"}
+									>
+										{detail.label}
+									</Text>
 
-								{details.right.indexOf(detail) != details.right.length - 1 && (
-									<IconPointFilled size={8} />
-								)}
-							</Group>
-						))}
+									{details.right.indexOf(detail) != details.right.length - 1 && (
+										<IconPointFilled size={8} />
+									)}
+								</Group>
+							))}
+						</Group>
+						<Switch.Theme />
 					</Group>
 				</Flex>
 			</Container>

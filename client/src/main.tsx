@@ -25,7 +25,7 @@ import App from "./App";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
-		<MantineProvider theme={projectName} defaultColorScheme="dark">
+		<MantineProvider theme={projectName} defaultColorScheme="auto">
 			<Notifications limit={3} />
 			<App />
 		</MantineProvider>
