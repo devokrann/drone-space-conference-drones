@@ -102,9 +102,9 @@ export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: stri
 			policy,
 		} = rawData;
 
-		fname = utils.parser.string.capitalize.word(fname);
-		lname = utils.parser.string.capitalize.word(lname);
-		email = contactEmail.toLowerCase();
+		// fname = utils.parser.string.capitalize.word(fname);
+		// lname = utils.parser.string.capitalize.word(lname);
+		// email = email.toLowerCase();
 
 		companyName = utils.parser.string.capitalize.words(companyName);
 
@@ -113,9 +113,9 @@ export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: stri
 		contactEmail = contactEmail.toLowerCase();
 
 		const parsedData = {
-			fname,
-			lname,
-			email,
+			fname: utils.parser.string.capitalize.word(fname),
+			lname: utils.parser.string.capitalize.word(lname),
+			email: email.toLowerCase(),
 
 			companyName: companyName.length > 1 ? `Company Name: ${companyName}` : "",
 
@@ -127,7 +127,7 @@ export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: stri
 			boothPackage: boothPackage.length > 1 ? `Booth Package: ${boothPackage}` : "",
 			boothSize: boothSize.length > 1 ? `Booth Size: ${boothSize}` : "",
 
-			subject: subject == "Other" ? "General" : subject,
+			subject: subject == "Other" ? "Drone Expo" : subject,
 			message,
 			policy,
 		};
