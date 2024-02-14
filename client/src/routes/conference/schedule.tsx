@@ -56,7 +56,17 @@ export default function Schedule() {
 												</Title>
 												<List spacing={"xs"} listStyleType="none" size="sm">
 													{data.program.schedule.ai.day1.map(item => (
-														<List.Item key={item.title}>{item.title}</List.Item>
+														<List.Item key={item.title.duration}>
+															<Group gap={"xs"} fz={{ base: "xs", lg: "sm" }}>
+																<Text component="span" inherit>
+																	{item.title.duration}
+																</Text>
+																-
+																<Text component="span" inherit>
+																	{item.title.heading}
+																</Text>
+															</Group>
+														</List.Item>
 													))}
 												</List>
 											</Stack>
@@ -68,7 +78,17 @@ export default function Schedule() {
 												</Title>
 												<List spacing={"xs"} listStyleType="none" size="sm">
 													{data.program.schedule.ai.day2.map(item => (
-														<List.Item key={item.title}>{item.title}</List.Item>
+														<List.Item key={item.title.duration}>
+															<Group gap={"xs"} fz={{ base: "xs", lg: "sm" }}>
+																<Text component="span" inherit>
+																	{item.title.duration}
+																</Text>
+																-
+																<Text component="span" inherit>
+																	{item.title.heading}
+																</Text>
+															</Group>
+														</List.Item>
 													))}
 												</List>
 											</Stack>
@@ -95,7 +115,17 @@ export default function Schedule() {
 												</Title>
 												<List spacing={"xs"} listStyleType="none" size="sm">
 													{data.program.schedule.drone.day1.map(item => (
-														<List.Item key={item.title}>{item.title}</List.Item>
+														<List.Item key={item.title.duration}>
+															<Group gap={"xs"} fz={{ base: "xs", lg: "sm" }}>
+																<Text component="span" inherit>
+																	{item.title.duration}
+																</Text>
+																-
+																<Text component="span" inherit>
+																	{item.title.heading}
+																</Text>
+															</Group>
+														</List.Item>
 													))}
 												</List>
 											</Stack>
@@ -107,7 +137,17 @@ export default function Schedule() {
 												</Title>
 												<List spacing={"xs"} listStyleType="none" size="sm">
 													{data.program.schedule.drone.day2.map(item => (
-														<List.Item key={item.title}>{item.title}</List.Item>
+														<List.Item key={item.title.duration}>
+															<Group gap={"xs"} fz={{ base: "xs", lg: "sm" }}>
+																<Text component="span" inherit>
+																	{item.title.duration}
+																</Text>
+																-
+																<Text component="span" inherit>
+																	{item.title.heading}
+																</Text>
+															</Group>
+														</List.Item>
 													))}
 												</List>
 											</Stack>

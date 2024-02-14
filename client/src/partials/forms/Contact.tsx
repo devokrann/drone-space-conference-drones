@@ -164,8 +164,6 @@ export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: stri
 		if (form.isValid()) {
 			setSubmitted(true);
 
-			// console.log(parse(formValues));
-
 			await emailjs
 				.send("service_gmail", "general_inquiries", parse(formValues), "m4Z8q5FsjIDKvyj1I")
 				.then(() =>
@@ -175,13 +173,13 @@ export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: stri
 						icon: <IconCheck size={16} stroke={1.5} />,
 						autoClose: 5000,
 						title: "Sent",
-						message: "Someone will get back to you within 24 hours",
 						classNames: {
 							root: notificationSuccess.root,
 							icon: notificationSuccess.icon,
 							description: notificationSuccess.description,
 							title: notificationSuccess.title,
 						},
+						message: "Someone will get back to you within 24 hours",
 					})
 				)
 				.then(() => form.reset())
