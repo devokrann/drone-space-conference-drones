@@ -52,7 +52,7 @@ const packages = {
 
 	sponsorship: [
 		{
-			title: "Platinum Package",
+			title: "Platinum",
 			price: "2,000,000",
 			desc: [
 				{
@@ -90,7 +90,7 @@ const packages = {
 			link: { link: "/registration/sponsorship", label: "Sponsor" },
 		},
 		{
-			title: "Gold Package",
+			title: "Gold",
 			price: "1,250,000",
 			desc: [
 				{ item: "Event", desc: "Speaker of day 1 of the conference" },
@@ -113,7 +113,7 @@ const packages = {
 			link: { link: "/registration/sponsorship", label: "Sponsor" },
 		},
 		{
-			title: "Silver Package",
+			title: "Silver",
 			price: "750,000",
 			desc: [
 				{ item: "Event", desc: "Speaker of day 1 of the conference" },
@@ -136,7 +136,7 @@ const packages = {
 			link: { link: "/registration/sponsorship", label: "Sponsor" },
 		},
 		{
-			title: "Other Sponsorship Opportunities",
+			title: "Other",
 			price: "400,000",
 			desc: [
 				{
