@@ -10,9 +10,19 @@ import classes from "./Contact.module.scss";
 export default function Contact({
 	title,
 	inquiry,
+	booth,
+	sponsorPackage,
+	boothSize,
 	children,
 	...restProps
-}: { title: string; inquiry?: string; children: React.ReactNode } & React.ComponentProps<typeof Button>) {
+}: {
+	title: string;
+	inquiry?: string;
+	booth?: string;
+	sponsorPackage?: string;
+	boothSize?: string;
+	children: React.ReactNode;
+} & React.ComponentProps<typeof Button>) {
 	const [opened, { open, close }] = useDisclosure(false);
 	const desktop = useMediaQuery("(min-width: 62em)");
 
@@ -28,7 +38,12 @@ export default function Contact({
 				classNames={{ header: classes.header, body: classes.body }}
 				mah={"50vh"}
 			>
-				<Partial.Form.Contact defaultInquiry={inquiry} />
+				<Partial.Form.Contact
+					defaultInquiry={inquiry}
+					defaultBooth={booth}
+					defaultBoothSize={boothSize}
+					defaultPackage={sponsorPackage}
+				/>
 			</Modal>
 
 			<Button onClick={open} fullWidth {...restProps}>

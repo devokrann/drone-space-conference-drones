@@ -16,7 +16,7 @@ export default function Sponsor({ data }: typeSponsor) {
 			<Stack gap={"xl"} w={"100%"}>
 				<Stack gap={0} align="center">
 					<Text component="h3" ta={"center"} tt={"uppercase"} fw={500}>
-						{data.title}
+						{data.title} Sponsorship {data.title == "Other" && "Opportunities"}
 					</Text>
 					<Text component="p" ta={"center"} fz={36} fw={700} className={classes.price}>
 						<Text component="span" fw={500}>
@@ -36,8 +36,14 @@ export default function Sponsor({ data }: typeSponsor) {
 					))}
 				</List>
 			</Stack>
-			<modal.Contact inquiry="Sponsorship Application" title={data.title} color={"sec"} variant={"light"}>
-				Register for {data.title}
+			<modal.Contact
+				title={data.title == "Other" ? "Other Sponsorship" : `${data.title} Sponsorship`}
+				inquiry="Sponsorship Application"
+				sponsorPackage={data.title == "Other" ? "Other Sponsorship Opportunities" : data.title}
+				color={"sec"}
+				variant={"light"}
+			>
+				Register for {data.title} Sponsorship {data.title == "Other" && "Opportunities"}
 			</modal.Contact>
 		</Stack>
 	);

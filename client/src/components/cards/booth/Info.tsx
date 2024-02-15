@@ -83,7 +83,12 @@ export default function Info({ data, orientation }: typeInfo) {
 					</Text>
 				</Text>
 			</Stack>
-			<modal.Contact inquiry="Booth Registration" title={data.title}>
+			<modal.Contact
+				title={data.title}
+				inquiry="Booth Registration"
+				booth={"Corporate"}
+				boothSize={data.dimentions}
+			>
 				Book Now
 			</modal.Contact>
 			<Text

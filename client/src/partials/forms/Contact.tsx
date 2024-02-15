@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOMServer from "react-dom/server";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -13,19 +13,29 @@ import { IMaskInput } from "react-imask";
 
 import postContact from "@src/apis/postContact";
 
-import emailjs from "@emailjs/browser";
-
 import email from "../email";
 
-import Component from "@src/components";
+import emailjs from "@emailjs/browser";
 
-import utils from "@src/utilities";
+import { typeContact } from "@src/types/form";
+
+import utility from "@src/utilities";
 
 import notificationSuccess from "@src/styles/notifications/Success.module.scss";
 import notificationFail from "@src/styles/notifications/Fail.module.scss";
-import { typeContact } from "@src/types/form";
+import Component from "@src/components";
 
-export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: string }) {
+export default function Contact({
+	defaultInquiry = "",
+	defaultPackage = "",
+	defaultBooth = "",
+	defaultBoothSize = "",
+}: {
+	defaultInquiry?: string;
+	defaultPackage?: string;
+	defaultBooth?: string;
+	defaultBoothSize?: string;
+}) {
 	const [submitted, setSubmitted] = useState(false);
 
 	const form = useForm({
@@ -42,33 +52,40 @@ export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: stri
 			contactEmail: "",
 			contactPhoneNumber: "",
 
-			boothPackage: "",
-			boothSize: "",
+			sponsorshipPackage: defaultPackage,
+
+			boothPackage: defaultBooth,
+			boothSize: defaultBoothSize,
 
 			message: "",
 			policy: false,
 		},
 
 		validate: {
-			fname: value => utils.validator.form.special.text(value, 2, 24),
-			lname: value => utils.validator.form.special.text(value, 2, 24),
-			email: value => utils.validator.form.special.email(value),
+			fname: value => utility.validator.form.special.text(value, 2, 24),
+			lname: value => utility.validator.form.special.text(value, 2, 24),
+			email: value => utility.validator.form.special.email(value),
 
 			companyName: (value, values) =>
-				(values.boothPackage == "Corporates Booth" || values.subject == "Sponsorship Application") &&
-				utils.validator.form.special.text(value, 2, 24),
+				(values.boothPackage == "Corporate" || values.subject == "Sponsorship Application") &&
+				utility.validator.form.special.text(value, 2, 24),
 
 			universityName: (value, values) =>
-				values.subject == "University Pavilion Application" && utils.validator.form.special.text(value, 2, 24),
+				values.subject == "University Pavilion Application" &&
+				utility.validator.form.special.text(value, 2, 24),
 			contactPerson: (value, values) =>
 				(values.subject == "University Pavilion Application" || values.subject == "Sponsorship Application") &&
-				utils.validator.form.special.text(value, 2, 24),
+				utility.validator.form.special.text(value, 2, 24),
 			contactEmail: (value, values) =>
 				(values.subject == "University Pavilion Application" || values.subject == "Sponsorship Application") &&
-				utils.validator.form.special.email(value),
+				utility.validator.form.special.email(value),
 			contactPhoneNumber: (value, values) =>
 				(values.subject == "University Pavilion Application" || values.subject == "Sponsorship Application") &&
-				utils.validator.form.special.phone(value),
+				utility.validator.form.special.phone(value),
+
+			sponsorshipPackage: (value, values) =>
+				values.subject == "Sponsorship Application" &&
+				(value.trim().length < 1 ? "Please select a package" : null),
 
 			boothPackage: (value, values) =>
 				values.subject == "Booth Registration" && (value.trim().length < 1 ? "Please select a package" : null),
@@ -86,53 +103,49 @@ export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: stri
 			fname,
 			lname,
 			email,
+			subject,
+			message,
+			policy,
 
 			companyName,
-
 			universityName,
 			contactPerson,
 			contactEmail,
 			contactPhoneNumber,
-
+			sponsorshipPackage,
 			boothPackage,
 			boothSize,
-
-			subject,
-			message,
-			policy,
 		} = rawData;
 
-		// fname = utils.parser.string.capitalize.word(fname);
-		// lname = utils.parser.string.capitalize.word(lname);
-		// email = email.toLowerCase();
-
-		companyName = utils.parser.string.capitalize.words(companyName);
-
-		universityName = utils.parser.string.capitalize.words(universityName);
-		contactPerson = utils.parser.string.capitalize.words(contactPerson);
+		fname = utility.parser.string.capitalize.word(fname);
+		lname = utility.parser.string.capitalize.word(lname);
+		email = email.toLowerCase();
+		companyName = utility.parser.string.capitalize.words(companyName);
+		universityName = utility.parser.string.capitalize.words(universityName);
+		contactPerson = utility.parser.string.capitalize.words(contactPerson);
 		contactEmail = contactEmail.toLowerCase();
 
-		const parsedData = {
-			fname: utils.parser.string.capitalize.word(fname),
-			lname: utils.parser.string.capitalize.word(lname),
-			email: email.toLowerCase(),
-
-			companyName: companyName.length > 1 ? `Company Name: ${companyName}` : "",
-
-			universityName: universityName.length > 1 ? `University Name: ${universityName}` : "",
-			contactPerson: contactPerson.length > 1 ? `Contact Person: ${contactPerson}` : "",
-			contactEmail: contactEmail.length > 1 ? `Contact Email: ${contactEmail}` : "",
-			contactPhoneNumber: contactPhoneNumber.length > 1 ? `Contact PhoneNumber: ${contactPhoneNumber}` : "",
-
-			boothPackage: boothPackage.length > 1 ? `Booth Package: ${boothPackage}` : "",
-			boothSize: boothSize.length > 1 ? `Booth Size: ${boothSize}` : "",
-
+		return {
+			fname,
+			lname,
+			email,
 			subject: subject == "Other" ? "Drone Expo" : subject,
 			message,
 			policy,
-		};
 
-		return parsedData;
+			companyName: subject != "Other" && companyName.length > 1 ? `Company Name: ${companyName}` : "",
+			universityName: subject != "Other" && universityName.length > 1 ? `University Name: ${universityName}` : "",
+			contactPerson: subject != "Other" && contactPerson.length > 1 ? `Contact Person: ${contactPerson}` : "",
+			contactEmail: subject != "Other" && contactEmail.length > 1 ? `Contact Email: ${contactEmail}` : "",
+			contactPhoneNumber:
+				subject != "Other" && contactPhoneNumber.length > 1
+					? `Contact Phone Number: ${contactPhoneNumber}`
+					: "",
+			sponsorshipPackage:
+				subject != "Other" && sponsorshipPackage.length > 1 ? `Sponsorship Package: ${sponsorshipPackage}` : "",
+			boothPackage: subject != "Other" && boothPackage.length > 1 ? `Booth Package: ${boothPackage}` : "",
+			boothSize: subject != "Other" && boothSize.length > 1 ? `Booth Size: ${boothSize}` : "",
+		};
 	};
 
 	const messageContent = () => {
@@ -164,6 +177,8 @@ export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: stri
 		if (form.isValid()) {
 			setSubmitted(true);
 
+			// console.log(parse(formValues));
+
 			await emailjs
 				.send("service_gmail", "general_inquiries", parse(formValues), "m4Z8q5FsjIDKvyj1I")
 				.then(() =>
@@ -173,13 +188,13 @@ export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: stri
 						icon: <IconCheck size={16} stroke={1.5} />,
 						autoClose: 5000,
 						title: "Sent",
+						message: "Someone will get back to you within 24 hours",
 						classNames: {
 							root: notificationSuccess.root,
 							icon: notificationSuccess.icon,
 							description: notificationSuccess.description,
 							title: notificationSuccess.title,
 						},
-						message: "Someone will get back to you within 24 hours",
 					})
 				)
 				.then(() => form.reset())
@@ -250,7 +265,7 @@ export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: stri
 						label="Inquiry"
 						description="What are you inquiring about?"
 						// placeholder="Select an inquiry"
-						defaultValue={""}
+						defaultValue={defaultInquiry}
 						data={[
 							{
 								label: "Select an inquiry",
@@ -268,12 +283,67 @@ export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: stri
 								label: "University Pavilion Application",
 								value: "University Pavilion Application",
 							},
+							{
+								label: "Speaker Registration",
+								value: "Speaker Registration",
+							},
 							{ label: "Other", value: "Other" },
 						]}
 						required
 						{...form.getInputProps("subject")}
 					/>
 				</Grid.Col>
+
+				{form.values.subject == "Sponsorship Application" && (
+					<Grid.Col span={{ base: 12, sm: 6 }}>
+						<Component.Input.Select
+							label="Sponsorship Package"
+							description="The package you intend to purchase"
+							// placeholder="Select an inquiry"
+							defaultValue={defaultPackage}
+							data={[
+								{
+									label: "Select a package",
+									value: "",
+								},
+								// {
+								// 	label: "Title Sponsorship Package",
+								// 	value: "Title",
+								// },
+								{
+									label: "Platinum Sponsorship Package",
+									value: "Platinum",
+								},
+								{
+									label: "Gold Sponsorship Package",
+									value: "Gold",
+								},
+								{
+									label: "Silver Sponsorship Package",
+									value: "Silver",
+								},
+								{
+									label: "Other Sponsorship Opportunities",
+									value: "Other Sponsorship Opportunities",
+								},
+								// {
+								// 	label: "Bronze Sponsorship Package",
+								// 	value: "Bronze",
+								// },
+								// {
+								// 	label: "Coffee Break Sponsorship Package",
+								// 	value: "Coffee Break",
+								// },
+								// {
+								// 	label: "5G Wi-Fi Sponsorship Package",
+								// 	value: "5G Wi-Fi",
+								// },
+							]}
+							required
+							{...form.getInputProps("sponsorshipPackage")}
+						/>
+					</Grid.Col>
+				)}
 
 				{form.values.subject == "Sponsorship Application" && companyNameInput}
 
@@ -354,19 +424,27 @@ export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: stri
 				>
 					<Component.Input.Select
 						label="Booth Package"
-						defaultValue={""}
+						defaultValue={defaultPackage}
 						data={[
 							{
 								label: "Select a booth type",
 								value: "",
 							},
+							// {
+							// 	label: "Startup Booth",
+							// 	value: "Startup",
+							// },
 							{
-								label: "SME'S Booth",
-								value: "SME'S Booth",
+								label: "SME Booth",
+								value: "SME",
 							},
 							{
-								label: "Corporates Booth",
-								value: "Corporates Booth",
+								label: "Corporate Booth",
+								value: "Corporate",
+							},
+							{
+								label: "International Booth",
+								value: "International",
 							},
 						]}
 						required
@@ -379,19 +457,23 @@ export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: stri
 				>
 					<Component.Input.Select
 						label="Booth Size"
-						defaultValue={""}
+						defaultValue={defaultBoothSize}
 						data={[
 							{
 								label: "Select a booth size",
 								value: "",
 							},
+							// {
+							// 	label: "3M by 2M (6 sqm)",
+							// 	value: "3M by 2M",
+							// },
 							{
-								label: "3m by 3m (9 sqm)",
-								value: "3m by 3m (9 sqm)",
+								label: "3M by 3M (9 sqm)",
+								value: "3M by 3M",
 							},
 							{
-								label: "6m by 3m (18 sqm)",
-								value: "6m by 3m (18 sqm)",
+								label: "6M by 3M (18 sqm)",
+								value: "6M by 3M",
 							},
 						]}
 						required
@@ -399,7 +481,7 @@ export default function Contact({ defaultInquiry = "" }: { defaultInquiry?: stri
 					/>
 				</Grid.Col>
 
-				{form.values.boothPackage == "Corporates Booth" && companyNameInput}
+				{form.values.boothPackage == "Corporate" && companyNameInput}
 
 				<Grid.Col span={12}>
 					<Component.Input.Textarea

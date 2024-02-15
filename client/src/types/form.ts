@@ -10,6 +10,7 @@ export interface typeContact {
 	contactPerson: string;
 	contactEmail: string;
 	contactPhoneNumber: string;
+	sponsorshipPackage: string;
 
 	boothPackage: string;
 	boothSize: string;

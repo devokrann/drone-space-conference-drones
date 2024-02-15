@@ -43,7 +43,12 @@ export default function International({ data }: typeInternational) {
 					</Text>
 				</Text>
 			</Stack>
-			<modal.Contact inquiry="Booth Registration" title={data.title}>
+			<modal.Contact
+				title={data.title}
+				inquiry="Booth Registration"
+				booth={"International"}
+				boothSize={data.dimentions}
+			>
 				Book Now
 			</modal.Contact>
 		</Stack>

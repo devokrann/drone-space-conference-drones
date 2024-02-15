@@ -44,7 +44,12 @@ export default function Local({ data }: typeLocal) {
 					</Text>
 				</Text>
 			</Stack>
-			<modal.Contact inquiry="Booth Registration" title={data.title}>
+			<modal.Contact
+				title={`${data.title} Booth`}
+				inquiry="Booth Registration"
+				booth={data.title}
+				boothSize={data.dimentions}
+			>
 				Book Now
 			</modal.Contact>
 		</Stack>
