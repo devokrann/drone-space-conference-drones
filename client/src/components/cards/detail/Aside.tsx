@@ -9,7 +9,7 @@ export default function Aside({ title, children }: { title: string; children: Re
 		<Box className={classes.card}>
 			<Stack gap={"lg"}>
 				<Container w={"100%"} px={"xl"} size={"xl"}>
-					<Title order={2} fz={"lg"} fw={500}>
+					<Title order={2} className={classes.title}>
 						{title}
 					</Title>
 				</Container>

@@ -149,14 +149,7 @@ export default function Scroll({ data }: typeScroll) {
 	});
 
 	return (
-		<Box
-			style={theme => ({
-				boxShadow: theme.shadows.xl,
-				borderBottom: `2px solid ${theme.colors.pri[6]}`,
-				backgroundColor: rgba(theme.white, 0.8),
-				backdropFilter: "blur(4px)",
-			})}
-		>
+		<Box className={classes.navbar}>
 			<Container size="lg" py={"xs"}>
 				<Group align="center" justify="space-between">
 					<Group gap={"xs"} visibleFrom="md">

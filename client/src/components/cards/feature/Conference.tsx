@@ -10,14 +10,14 @@ import { typeConference } from "@src/types/card/feature/conference";
 
 export default function Conference({ data }: typeConference) {
 	return (
-		<Stack gap={"md"} h={"100%"} className={classes.card}>
+		<Stack gap={"md"} className={classes.card}>
 			<ThemeIcon size={48} className={classes.icon}>
 				<data.icon size={24} stroke={2} />
 			</ThemeIcon>
 			<Title order={3} fz={"md"} className={classes.title}>
 				{data.title}
 			</Title>
-			<Text component="p" fz={{ md: "xs", lg: "sm" }} w={{ md: "80%" }} className={classes.desc}>
+			<Text fz={{ md: "xs", lg: "sm" }} w={{ md: "80%" }} className={classes.desc}>
 				{data.desc}
 			</Text>
 		</Stack>

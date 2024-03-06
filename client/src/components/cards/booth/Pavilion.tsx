@@ -1,6 +1,6 @@
 import React from "react";
 
-import { List, Stack, Text } from "@mantine/core";
+import { List, Stack, Text, Title } from "@mantine/core";
 
 import classes from "./Pavilion.module.scss";
 
@@ -11,9 +11,9 @@ export default function Pavilion({ data }: typePavilion) {
 		<Stack justify="space-between" pos={"relative"} className={classes.card}>
 			<Stack gap={"md"}>
 				<Stack gap={0}>
-					<Text component="h3" c={"sec"} tt={"uppercase"} fz={"xl"} fw={700}>
+					<Title order={3} className={classes.title}>
 						{data.title}
-					</Text>
+					</Title>
 					{data.price && (
 						<Text component="p" ta={"center"} fz={36} fw={700} className={classes.price}>
 							<Text component="span" fw={500}>
@@ -32,13 +32,7 @@ export default function Pavilion({ data }: typePavilion) {
 					<List size="sm" spacing={"xs"} listStyleType="none">
 						{data.desc.map(item => (
 							<List.Item key={item}>
-								<Text
-									fz={"inherit"}
-									w={"fit-content"}
-									style={theme => ({
-										borderBottom: `2px dashed ${theme.colors.sec[6]}`,
-									})}
-								>
+								<Text fz={"inherit"} w={"fit-content"} className={classes.item}>
 									{item}
 								</Text>
 							</List.Item>
@@ -47,7 +41,7 @@ export default function Pavilion({ data }: typePavilion) {
 				)}
 				<Text component="p" fz={"sm"} c={"sec"} fw={"500"}>
 					Dimentions:{" "}
-					<Text component="span" c={"pri"} fz={"sm"} fw={"inherit"}>
+					<Text component="span" c={"pri.6"} fz={"sm"} fw={"inherit"}>
 						{data.dimentions}
 					</Text>
 				</Text>

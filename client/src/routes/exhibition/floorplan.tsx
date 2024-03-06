@@ -16,7 +16,7 @@ export default function Floorplan() {
 		<Layout.Body header={<Partial.Header.Main />} nav={<Partial.Navbar.Main />} footer={<Partial.Footer.Main />}>
 			<Layout.Page hero={<Partial.Hero.Route image={image.gallery.expo.yr2022.image4} />}>
 				<Layout.Section containerized padded>
-					<Center>
+					<Center style={{ borderRadius: "var(--mantine-radius-md)", overflow: "hidden" }}>
 						<Image src={image.plan} w={"100%"} alt="floor plan" />
 					</Center>
 				</Layout.Section>

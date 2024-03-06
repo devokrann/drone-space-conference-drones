@@ -14,7 +14,7 @@ export default function Tickets() {
 		<Layout.Body header={<Partial.Header.Main />} nav={<Partial.Navbar.Main />} footer={<Partial.Footer.Main />}>
 			<Layout.Page hero={<Partial.Hero.Route image={image.gallery.expo.yr2022.image10} />}>
 				<Layout.Section containerized padded>
-					<Grid align="stretch" grow>
+					<Grid justify="center">
 						{data.packages.tickets
 							.filter(item => item.type === "local")
 							.map(item => (

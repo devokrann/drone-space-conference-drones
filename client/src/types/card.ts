@@ -4,7 +4,7 @@ export interface typeContact {
 	data: {
 		icon: Icon;
 		title: string;
-		desc: { title: string; link: string; label: string }[];
+		desc: { link: string; label: string }[];
 	};
 }
 

@@ -18,13 +18,13 @@ export default function Countdown() {
 	});
 
 	const details = [
-		{
-			unit: "Month",
-			time: time.months,
-		},
+		// {
+		// 	unit: "Month",
+		// 	time: time.months,
+		// },
 		{
 			unit: "Day",
-			time: time.days,
+			time: time.days + time.months * 31,
 		},
 		{
 			unit: "Hour",
@@ -43,16 +43,10 @@ export default function Countdown() {
 	return (
 		<Grid align="center" fz={{ base: 24, xs: 28, sm: 32, md: 36 }} fw={500} lh={1}>
 			{details.map(item => (
-				<Grid.Col
-					key={item.unit}
-					span={"auto"}
-					// style={(theme) => ({
-					// 	borderLeft: `1px solid ${theme.colors.pri[6]}`,
-					// })}
-				>
+				<Grid.Col key={item.unit} span={"auto"}>
 					<Stack align="center" gap={2}>
 						<Text component="span" fz={"inherit"} fw={"inherit"} lh={"inherit"}>
-							{item.time}
+							{item.time < 10 ? `0${item.time}` : item.time}
 						</Text>
 						<Text component="p" fw={500} tt={"uppercase"} fz={{ base: 8, xs: 12, sm: 16, md: 20 }}>
 							{item.unit}

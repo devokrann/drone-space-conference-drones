@@ -20,30 +20,14 @@ interface typeInternational {
 
 export default function International({ data }: typeInternational) {
 	return (
-		<Stack
-			align="center"
-			justify="space-between"
-			pos={"relative"}
-			className={classes.card}
-		>
+		<Stack align="center" justify="space-between" pos={"relative"} className={classes.card}>
 			<Stack gap={"md"}>
 				<Stack gap={0} align="center">
-					<Text
-						component="h3"
-						ta={"center"}
-						tt={"uppercase"}
-						fw={500}
-					>
+					<Text component="h3" ta={"center"} tt={"uppercase"} fw={500}>
 						{data.title}
 					</Text>
 				</Stack>
-				<Text
-					component="p"
-					ta={"center"}
-					fz={36}
-					fw={700}
-					className={classes.price}
-				>
+				<Text component="p" ta={"center"} fz={36} fw={700} className={classes.price}>
 					<Text component="span" fw={500}>
 						<IconCurrencyDollar stroke={2} />
 					</Text>
@@ -52,32 +36,21 @@ export default function International({ data }: typeInternational) {
 				<Text component="p" ta={"center"} fz={"sm"}>
 					{data.desc}
 				</Text>
-				<Text
-					component="p"
-					ta={"center"}
-					fz={"sm"}
-					c={"pri"}
-					fw={"500"}
-				>
+				<Text component="p" ta={"center"} fz={"sm"} fw={"500"}>
 					Dimentions:{" "}
-					<Text component="span" c={"white"} fz={"sm"} fw={"inherit"}>
+					<Text component="span" c={"pri.6"} fz={"sm"} fw={"inherit"}>
 						{data.dimentions}
 					</Text>
 				</Text>
 			</Stack>
-			<modal.Application title={data.title}>Book Now</modal.Application>
-			<Text
-				className={classes.tag}
-				fw={500}
-				tt={"uppercase"}
-				fz={"sm"}
-				px={40}
-				pos={"absolute"}
-				top={46}
-				right={-36}
+			<modal.Contact
+				title={data.title}
+				inquiry="Booth Registration"
+				booth={"International"}
+				boothSize={data.dimentions}
 			>
-				{data.type}
-			</Text>
+				Book Now
+			</modal.Contact>
 		</Stack>
 	);
 }

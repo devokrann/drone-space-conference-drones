@@ -15,7 +15,7 @@ export default function Sponsors2022() {
 	return (
 		<Layout.Body header={<Partial.Header.Main />} nav={<Partial.Navbar.Main />} footer={<Partial.Footer.Main />}>
 			<Layout.Page hero={<Partial.Hero.Route image={image.gallery.expo.yr2022.image1} />}>
-				<Layout.Section containerized padded bg={"gray.1"}>
+				<Layout.Section containerized padded>
 					<Stack gap={48}>
 						<Component.Heading.Main
 							title={{ plain: "2022", highlight: "Sponsors & Partners" }}

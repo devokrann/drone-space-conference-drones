@@ -1,6 +1,6 @@
 .card {
 	background-color: var(--mantine-color-sec-light);
-	border-radius: var(--mantine-radius-sm);
+	border-radius: var(--mantine-radius-md);
 	padding: var(--mantine-spacing-xl);
 	position: relative;
 	transition: 0.25s all ease;
@@ -10,19 +10,19 @@
 		cursor: pointer;
 
 		.title {
-			color: var(--mantine-color-pri-6);
+			color: light-dark(var(--mantine-color-pri-6), inherit);
 		}
 
 		.icon {
-			background-color: var(--mantine-color-pri-light);
+			background-color: light-dark(var(--mantine-color-pri-light), var(--mantine-color-sec-6));
 			opacity: 1;
 		}
 	}
 }
 
 .icon {
-	background-color: transparent;
-	color: var(--mantine-color-pri-6);
+	background-color: light-dark(transparent, var(--mantine-color-gray-light));
+	color: light-dark(var(--mantine-color-pri-6), inherit);
 	opacity: 0.1;
 	transition: 0.25s all ease;
 
@@ -32,12 +32,12 @@
 }
 
 .title {
-	color: var(--mantine-color-sec-6);
+	color: light-dark(var(--mantine-color-sec-6), var(--mantine-color-pri-6));
 	transition: 0.25s all ease;
 }
 
 .link {
-	color: var(--mantine-color-sec-6);
+	color: light-dark(var(--mantine-color-sec-6), var(--mantine-color-pri-6));
 	text-decoration: none;
 
 	&:hover {
@@ -55,6 +55,7 @@
 
 .span {
 	position: relative;
+	font-weight: 500;
 	left: 16px;
 	transition: 0.25s all ease;
 }

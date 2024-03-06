@@ -1,5 +1,12 @@
+.footer {
+	background-color: light-dark(var(--mantine-color-sec-6), var(--mantine-color-sec-8));
+	color: light-dark(var(--mantine-color-white), var(--mantine-color-gray-3));
+	position: relative;
+	border-top: 2px solid light-dark(var(--mantine-color-pri-6), inherit);
+}
+
 .link {
-	color: white;
+	color: light-dark(var(--mantine-color-white), var(--mantine-color-gray-3));
 	text-decoration: none;
 	transition: 0.25s all ease;
 	font-size: var(--mantine-font-size-sm);

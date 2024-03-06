@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Image, Stack, Text, Title } from "@mantine/core";
+import { Box, Center, Image, Spoiler, Stack, Text, Title } from "@mantine/core";
 
 import { Icon } from "@tabler/icons-react";
 
@@ -10,26 +10,33 @@ import { typeListing } from "@src/types/speaker";
 
 export default function Listing({ data }: typeListing) {
 	return (
-		<Stack align="center" justify="space-between" h={"100%"} p={"xl"} className={classes.card}>
-			<Stack align="center" gap={"lg"}>
-				<Image src={data.img} alt={data.name} maw={200} radius={99} />
-				<Stack gap={8}>
-					<Title order={3} ta={"center"} fz={"xl"} className={classes.title}>
-						{data.name}
-					</Title>
-					<Title order={4} fz={11} ta={"center"} c={"pri"}>
-						{data.position}
-						{data.pow && (
-							<Text component="span" fw={700} tt={"uppercase"} fz={"inherit"} c={"white"}>
-								, {data.pow}
-							</Text>
-						)}
-					</Title>
+		<Box className={classes.card}>
+			<Center className={classes.head}>
+				<Stack align="center" gap={"lg"}>
+					<Image src={data.img} alt={data.name} maw={200} radius={99} />
+					<Stack gap={8} ta={"center"}>
+						<Title order={3} fz={"xl"} className={classes.title}>
+							{data.name}
+						</Title>
+						<Title order={4} fz={"sm"}>
+							{data.position && data.position}
+							{data.pow && (
+								<>
+									{data.position && `, `}
+									<Text component="span" inherit fz={"md"} c={"pri.6"}>
+										{data.pow}
+									</Text>
+								</>
+							)}
+						</Title>
+					</Stack>
 				</Stack>
-				<Text component={"p"} fz={"sm"} ta={"center"}>
+			</Center>
+			<Center className={classes.content}>
+				<Spoiler maxHeight={240} showLabel="more" hideLabel="less">
 					{data.bio}
-				</Text>
-			</Stack>
-		</Stack>
+				</Spoiler>
+			</Center>
+		</Box>
 	);
 }

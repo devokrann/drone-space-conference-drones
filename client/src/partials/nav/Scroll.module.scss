@@ -1,3 +1,10 @@
+.navbar {
+	background-color: light-dark(var(--mantine-color-pri-0), var(--mantine-color-sec-8));
+	color: light-dark(var(--mantine-color-white), var(--mantine-color-gray-3));
+	box-shadow: var(--mantine-shadow-xl);
+	border-bottom: 2px solid light-dark(var(--mantine-color-pri-6), inherit);
+}
+
 .menu-dropdown {
 	padding: 0;
 	border: 0px solid var(--mantine-color-pri-6);
@@ -5,7 +12,7 @@
 }
 
 .menu-item {
-	background-color: var(--mantine-color-sec-6);
+	background-color: light-dark(var(--mantine-color-sec-6), var(--mantine-color-sec-6));
 	color: var(--mantine-color-white);
 	border-radius: 0;
 
@@ -28,7 +35,7 @@
 }
 
 .link {
-	color: var(--mantine-color-sec-6);
+	color: light-dark(var(--mantine-color-sec-6), inherit);
 	padding: 0 calc(var(--mantine-spacing-xs) / 4);
 	text-decoration: none;
 	font-size: var(--mantine-font-size-sm);

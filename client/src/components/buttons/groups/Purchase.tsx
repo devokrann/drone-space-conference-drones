@@ -2,10 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { Button, ButtonGroup } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 
 export default function Purchase({ orientation = "horizontal" }: { orientation?: "horizontal" | "vertical" }) {
+	const mobile = useMediaQuery("(max-width: 36em)");
 	return (
-		<ButtonGroup orientation={orientation ? orientation : "horizontal"}>
+		<ButtonGroup orientation={mobile ? "vertical" : orientation}>
 			<Button
 				component={Link}
 				to={"/conference/tickets"}

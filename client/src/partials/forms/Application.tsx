@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { Anchor, Button, Checkbox, Grid, Group, Select, Text, TextInput, Textarea } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { hasLength, useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconX } from "@tabler/icons-react";
 
@@ -9,8 +9,10 @@ import utils from "@src/utilities";
 
 import emailjs from "@emailjs/browser";
 
-import classesSuccess from "@src/styles/notifications/Success.module.scss";
-import classesFail from "@src/styles/notifications/Fail.module.scss";
+import Component from "@src/components";
+
+import notificationSuccess from "@src/styles/notifications/Success.module.scss";
+import notificationFail from "@src/styles/notifications/Fail.module.scss";
 
 interface typeForm {
 	fname: string;
@@ -40,7 +42,7 @@ export default function Application() {
 			lname: value => utils.validator.form.special.text(value, 2, 24),
 			email: value => utils.validator.form.special.email(value),
 			application: value => utils.validator.form.special.text(value, 5, 24),
-			message: value => utils.validator.form.special.text(value, 5, 2048),
+			message: hasLength({ min: 10 }, "Value must have 10  or more characters"),
 			policy: value => utils.validator.form.generic.isEmpty.checkbox(value),
 		},
 	});
@@ -78,32 +80,48 @@ export default function Application() {
 			.send("service_gmail", "form_application", parse(data), "m4Z8q5FsjIDKvyj1I")
 			.then(() =>
 				notifications.show({
+					id: "send-success",
+					withCloseButton: false,
+					icon: <IconCheck size={16} stroke={1.5} />,
+					autoClose: 5000,
 					title: "Sent",
-					message: "Message delivered. One of our representatives will be in touch within 24 hours.",
-					color: "sec",
-					classNames: classesSuccess,
-					icon: <IconCheck size={16} stroke={2} />,
+					message: "Someone will get back to you within 24 hours",
+					classNames: {
+						root: notificationSuccess.root,
+						icon: notificationSuccess.icon,
+						description: notificationSuccess.description,
+						title: notificationSuccess.title,
+					},
 				})
 			)
 			.then(() => form.reset())
 			.then(() => setSending(false))
-			.catch(() => {
+			.catch(error => {
 				notifications.show({
-					title: `Send Failed`,
-					message: `Sorry, an error occured and we could not deliver your request.`,
-					color: "pri",
-					classNames: classesFail,
-					icon: <IconX size={16} stroke={2} />,
+					id: "send-fail",
+					withCloseButton: false,
+					icon: <IconX size={16} stroke={1.5} />,
+					autoClose: 5000,
+					title: "Send Failed",
+					message: `Error: ${error.message}`,
+					classNames: {
+						root: notificationFail.root,
+						icon: notificationFail.icon,
+						description: notificationFail.description,
+						title: notificationFail.title,
+					},
 				});
 				setSending(false);
 			});
+
+		setSending(false);
 	};
 
 	return (
 		<form onSubmit={form.onSubmit(values => onSubmit(values))} noValidate>
-			<Grid c={"sec"}>
+			<Grid>
 				<Grid.Col span={{ base: 12, xs: 6 }}>
-					<TextInput
+					<Component.Input.Text
 						required
 						label="First Name"
 						placeholder="Enter your first name here"
@@ -111,7 +129,7 @@ export default function Application() {
 					/>
 				</Grid.Col>
 				<Grid.Col span={{ base: 12, xs: 6 }}>
-					<TextInput
+					<Component.Input.Text
 						required
 						label="Last Name"
 						placeholder="Enter your last name here"
@@ -119,7 +137,7 @@ export default function Application() {
 					/>
 				</Grid.Col>
 				<Grid.Col span={{ base: 12, xs: 6 }}>
-					<TextInput
+					<Component.Input.Text
 						required
 						label="Email"
 						description="We will never share your email"
@@ -128,7 +146,7 @@ export default function Application() {
 					/>
 				</Grid.Col>
 				<Grid.Col span={{ base: 12, xs: 6 }}>
-					<Select
+					<Component.Input.Select
 						required
 						label="Type of Application"
 						description={"Are you applying as an exhibitor or as a sponsor?"}
@@ -138,7 +156,7 @@ export default function Application() {
 					/>
 				</Grid.Col>
 				<Grid.Col span={12}>
-					<Textarea
+					<Component.Input.Textarea
 						required
 						label="Message"
 						description={
@@ -161,11 +179,12 @@ export default function Application() {
 					<Checkbox
 						required
 						defaultChecked={false}
-						size="xs"
+						radius={"xl"}
+						ml={"md"}
 						label={
 							<Text component="p" fz={"inherit"}>
 								I have read and accept the 'Drone Tech & Data Expo'{" "}
-								<Anchor href="#privacy-policy" fw={500} fz={"inherit"}>
+								<Anchor href="#privacy-policy" fw={500} fz={"inherit"} c={"pri.6"}>
 									privacy policy
 								</Anchor>
 								.
@@ -175,21 +194,18 @@ export default function Application() {
 					/>
 				</Grid.Col>
 				<Grid.Col span={12} mt={"xl"}>
-					<Group align="center" grow>
-						<Button
-							type="reset"
-							color="sec"
-							tt={"uppercase"}
-							fz={"xs"}
-							onClick={form.reset}
-							disabled={sending}
-						>
-							Clear
-						</Button>
-						<Button type="submit" tt={"uppercase"} fz={"xs"} loading={sending}>
-							Send
-						</Button>
-					</Group>
+					<Grid>
+						<Grid.Col span={{ base: 12, xs: 6 }}>
+							<Button type="reset" onClick={form.reset} disabled={sending} fullWidth>
+								Clear
+							</Button>
+						</Grid.Col>
+						<Grid.Col span={{ base: 12, xs: 6 }}>
+							<Button type="submit" color="sec" loading={sending} fullWidth>
+								Send
+							</Button>
+						</Grid.Col>
+					</Grid>
 				</Grid.Col>
 			</Grid>
 		</form>

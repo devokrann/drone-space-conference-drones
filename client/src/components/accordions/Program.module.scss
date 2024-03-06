@@ -1,0 +1,29 @@
+.item {
+	border-bottom: 0px solid light-dark(var(--mantine-color-pri-light), var(--mantine-color-gray-light));
+	margin-bottom: calc(var(--mantine-spacing-xs) / 2);
+}
+
+.control {
+	background-color: var(--mantine-color-sec-6);
+	color: light-dark(var(--mantine-color-white), inherit);
+	border-radius: var(--mantine-radius-xl);
+	transition: 0.25s all ease;
+
+	&:hover {
+		color: var(--mantine-color-pri-6);
+	}
+}
+
+.label {
+	font-weight: 500;
+}
+
+.content {
+	padding: var(--mantine-spacing-md) 0;
+	border-radius: var(--mantine-radius-md);
+	background-color: var(--mantine-color-pri-light);
+}
+
+.panel {
+	padding: 0 var(--mantine-spacing-lg);
+}

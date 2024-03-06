@@ -10,6 +10,7 @@ import Component from "../../components";
 import data from "../../data";
 
 import classes from "./Main.module.scss";
+import Switch from "@src/components/switches";
 
 const details = {
 	left: [
@@ -44,34 +45,31 @@ const details = {
 
 export default function Main() {
 	return (
-		<Box component="header" bg={"sec.6"} c={"white"}>
-			<Box
-				style={theme => ({
-					borderBottom: `2px solid ${theme.colors.pri[6]}`,
-				})}
-			>
-				<Container size={"lg"} py={8}>
-					<Flex
-						align="center"
-						direction={{ base: "column", xs: "row" }}
-						gap={"xs"}
-						justify={{ base: "center", xs: "space-between" }}
-						fz={"xs"}
-						fw={500}
-					>
-						<Group align="center" gap={8}>
-							{details.left.map(detail => (
-								<Group align="center" gap={8} key={detail.label}>
-									<Text key={detail.label} component="p" fz={"inherit"} fw={"inherit"}>
-										{detail.label}
-									</Text>
+		<Box component="header" className={classes.header}>
+			<Container size={"lg"} py={8}>
+				<Flex
+					align="center"
+					direction={{ base: "column", xs: "row" }}
+					gap={"xs"}
+					justify={{ base: "center", xs: "space-between" }}
+					fz={"xs"}
+					fw={500}
+					ta={{ base: "center" }}
+				>
+					<Group align="center" gap={8}>
+						{details.left.map(detail => (
+							<Group align="center" gap={8} key={detail.label}>
+								<Text key={detail.label} component="p" fz={"inherit"} fw={"inherit"}>
+									{detail.label}
+								</Text>
 
-									{details.left.indexOf(detail) != details.left.length - 1 && (
-										<IconPointFilled size={8} />
-									)}
-								</Group>
-							))}
-						</Group>
+								{details.left.indexOf(detail) != details.left.length - 1 && (
+									<IconPointFilled size={8} />
+								)}
+							</Group>
+						))}
+					</Group>
+					<Group gap={"md"}>
 						<Group align="center" gap={8}>
 							{details.right.map(detail => (
 								<Group align="center" gap={8} key={detail.link}>
@@ -92,9 +90,10 @@ export default function Main() {
 								</Group>
 							))}
 						</Group>
-					</Flex>
-				</Container>
-			</Box>
+						<Switch.Theme />
+					</Group>
+				</Flex>
+			</Container>
 		</Box>
 	);
 }

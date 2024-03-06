@@ -1,16 +1,17 @@
 .card {
-	background-color: var(--mantine-color-sec-6);
-	color: var(--mantine-color-white);
-	border: 2px solid var(--mantine-color-pri-6);
-	border-radius: var(--mantine-radius-sm);
+	background-color: light-dark(var(--mantine-color-pri-light), var(--mantine-color-sec-light));
+	box-shadow: var(--mantine-shadow-xs);
+	border-radius: var(--mantine-radius-md);
 	padding: var(--mantine-spacing-xl);
 	overflow: hidden;
 	height: 100%;
 	transition: 0.25s all ease;
 
 	&:hover {
+		box-shadow: var(--mantine-shadow-md);
+
 		.price {
-			color: var(--mantine-color-pri-6);
+			color: light-dark(var(--mantine-color-sec-6), var(--mantine-color-white));
 		}
 	}
 }

@@ -1,3 +1,9 @@
+.navbar {
+	background-color: light-dark(var(--mantine-color-white));
+	color: light-dark(var(--mantine-color-white), var(--mantine-color-gray-3));
+	box-shadow: var(--mantine-shadow-xl);
+}
+
 .menu-dropdown {
 	padding: 0;
 	border: 0px solid var(--mantine-color-pri-6);
@@ -5,7 +11,7 @@
 }
 
 .menu-item {
-	background-color: var(--mantine-color-sec-6);
+	background-color: light-dark(var(--mantine-color-sec-6), var(--mantine-color-sec-6));
 	color: var(--mantine-color-white);
 	border-radius: 0;
 

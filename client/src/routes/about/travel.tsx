@@ -11,8 +11,10 @@ import Partial from "../../partials";
 import data from "../../data";
 import image from "../../assets/images";
 import video from "../../assets/videos";
+import { useMediaQuery } from "@mantine/hooks";
 
 export default function Travel() {
+	const matches = useMediaQuery("(min-width: 36em)");
 	return (
 		<Layout.Body header={<Partial.Header.Main />} nav={<Partial.Navbar.Main />} footer={<Partial.Footer.Main />}>
 			<Layout.Page hero={<Partial.Hero.Route video={video.montage} />}>
@@ -35,16 +37,28 @@ export default function Travel() {
 						key={item.title.plain}
 						containerized
 						padded
-						bg={data.structure.travel.indexOf(item) % 2 == 1 ? "sec.0" : "pri.0"}
+						// bg={data.structure.travel.indexOf(item) % 2 == 1 ? "sec.0" : "pri.0"}
 					>
-						<Grid gutter={"xl"} align="center">
+						<Grid align="center" gutter={{ base: "xl" }}>
 							<Grid.Col
 								span={{ base: 12, xs: 6 }}
-								order={data.structure.travel.indexOf(item) % 2 == 1 ? 2 : 1}
+								order={matches && data.structure.travel.indexOf(item) % 2 == 1 ? 2 : 1}
 							>
 								<Stack
-									align={data.structure.travel.indexOf(item) % 2 == 1 ? "start" : "end"}
-									ta={data.structure.travel.indexOf(item) % 2 == 1 ? "start" : "end"}
+									align={
+										matches
+											? data.structure.travel.indexOf(item) % 2 == 1
+												? "start"
+												: "end"
+											: "center"
+									}
+									ta={
+										matches
+											? data.structure.travel.indexOf(item) % 2 == 1
+												? "start"
+												: "end"
+											: "center"
+									}
 									gap={"xs"}
 									w={"100%"}
 								>
@@ -70,7 +84,7 @@ export default function Travel() {
 										{item.list && (
 											<Grid gutter={0}>
 												{item.list.map(detail => (
-													<Grid.Col key={detail.desc} span={{ base: 12, xs: 6 }}>
+													<Grid.Col key={detail.desc} span={{ base: 6 }}>
 														<Stack align="center" gap={"xs"}>
 															<Image src={detail.image} w={"80%"} alt={detail.desc} />
 															<Text
@@ -93,10 +107,10 @@ export default function Travel() {
 							</Grid.Col>
 							<Grid.Col
 								span={{ base: 12, xs: 6 }}
-								order={data.structure.travel.indexOf(item) % 2 == 1 ? 1 : 2}
+								order={matches && data.structure.travel.indexOf(item) % 2 == 1 ? 1 : 2}
 							>
 								<Center>
-									<Image src={item.image} h={240} alt={`section image`} />
+									<Image src={item.image} h={matches && 240} alt={`section image`} />
 								</Center>
 							</Grid.Col>
 						</Grid>

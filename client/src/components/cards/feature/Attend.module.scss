@@ -1,6 +1,6 @@
 .card {
 	background-color: var(--mantine-color-sec-light);
-	border-radius: var(--mantine-radius-sm);
+	border-radius: var(--mantine-radius-md);
 	padding: var(--mantine-spacing-xl);
 	position: relative;
 	transition: 0.25s all ease;
@@ -9,20 +9,16 @@
 		background-color: transparent;
 		cursor: pointer;
 
-		.title {
-			color: var(--mantine-color-pri-6);
-		}
-
 		.icon {
-			background-color: var(--mantine-color-pri-light);
+			background-color: light-dark(var(--mantine-color-pri-light), var(--mantine-color-gray-light));
 			opacity: 1;
 		}
 	}
 }
 
 .icon {
-	background-color: transparent;
-	color: var(--mantine-color-pri-6);
+	background-color: light-dark(transparent);
+	color: light-dark(var(--mantine-color-pri-6), inherit);
 	opacity: 0.1;
 	transition: 0.25s all ease;
 
@@ -34,6 +30,6 @@
 }
 
 .title {
-	color: var(--mantine-color-sec-6);
+	color: light-dark(var(--mantine-color-sec-6), var(--mantine-color-pri-6));
 	transition: 0.25s all ease;
 }

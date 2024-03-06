@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Anchor, Stack, Text, ThemeIcon, Title } from "@mantine/core";
+import { Anchor, Divider, Stack, Text, ThemeIcon, Title } from "@mantine/core";
 
 import { Icon } from "@tabler/icons-react";
 
@@ -10,29 +10,21 @@ import { typeContact } from "@src/types/card";
 
 export default function Contact({ data }: typeContact) {
 	return (
-		<Stack align="center" gap={"md"} className={classes.card} bg={"sec"} p={"xl"} h={"100%"} c={"white"}>
-			<ThemeIcon size={96} radius={99} variant="outline" className={classes.icon}>
+		<Stack align="center" gap={"lg"} className={classes.card}>
+			<ThemeIcon size={96} color="sec" className={classes.icon}>
 				<data.icon size={40} stroke={1} />
 			</ThemeIcon>
-			<Title order={3} className={classes.title} fz={"sm"} tt={"uppercase"} ta={"center"}>
+			<Title order={3} className={classes.title}>
 				{data.title}
 			</Title>
+			<Divider w={"50%"} color="pri.6" />
 			{data.desc && (
-				<Stack gap={0} align="center">
-					{data.desc.map(item =>
-						item.title ? (
-							<Text component="p" fz={"xs"}>
-								{item.title}:{" "}
-								<Anchor className={classes.link} href={item.link} fz={"inherit"} fw={500}>
-									{item.label}
-								</Anchor>
-							</Text>
-						) : (
-							<Anchor className={classes.link} href={item.link} fz={"xs"} fw={500}>
-								{item.label}
-							</Anchor>
-						)
-					)}
+				<Stack gap={"xs"} align="center" ta={"center"}>
+					{data.desc.map(item => (
+						<Anchor key={item.link} className={classes.link} href={item.link} title={item.label}>
+							{item.label}
+						</Anchor>
+					))}
 				</Stack>
 			)}
 		</Stack>

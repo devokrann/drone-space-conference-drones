@@ -17,7 +17,7 @@ export default function Industries() {
 				<Center w={slide.width} mih={100}>
 					<Image src={slide.img} alt={slide.name} w={"100%"} />
 				</Center>
-				<Text component="p" fz={{ base: "xs" }} c={"pri"} fw={500} ta={"center"}>
+				<Text component="p" fz={{ base: "xs" }} c={"pri.6"} fw={500} ta={"center"}>
 					{slide.name}
 				</Text>
 			</Stack>
@@ -29,8 +29,9 @@ export default function Industries() {
 			withIndicators
 			loop
 			withControls={false}
-			slideSize="16.67%"
+			slideSize={{ base: "50%", xs: "33%", sm: "25%", md: "16.67%", lg: "12.5%" }}
 			plugins={[autoplay.current]}
+			slidesToScroll={1}
 			// onMouseEnter={autoplay.current.stop}
 			// onMouseLeave={autoplay.current.reset}
 		>

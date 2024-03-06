@@ -1,5 +1,10 @@
 .card {
-	background-color: var(--mantine-color-sec-light);
+	background-color: light-dark(var(--mantine-color-sec-light), var(--mantine-color-sec-light));
 	padding: var(--mantine-spacing-xl) 0;
-	border-radius: var(--mantine-radius-sm);
+	border-radius: var(--mantine-radius-md);
+}
+
+.title {
+	font-weight: 500;
+	font-size: var(--mantine-font-size-lg);
 }

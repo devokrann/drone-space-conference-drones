@@ -2,7 +2,7 @@ import React from "react";
 
 import { Anchor, Box, Container, Divider, Grid, Group, Image, List, Stack, Text, Title } from "@mantine/core";
 
-import { IconMail } from "@tabler/icons-react";
+import { IconMail, IconMapPin, IconPhone } from "@tabler/icons-react";
 
 import Component from "@src/components";
 import Layout from "@src/layouts";
@@ -10,114 +10,101 @@ import Partial from "@src/partials";
 
 import data from "@src/data";
 import image from "@src/assets/images";
+import { Link } from "react-router-dom";
 
-const details = {
-	contact: [
-		{
-			icon: IconMail,
-			title: "Email",
-			desc: [
-				{
-					link: "mailto:info@drone-expo.co.ke",
-					label: "info@drone-expo.co.ke",
-				},
-			],
-		},
-	],
-};
+const links = [
+	{
+		icon: IconMail,
+		title: "Email",
+		order: { xs: 1, sm: 1 },
+		desc: [
+			{
+				link: "mailto:info@drone-expo.co.ke",
+				label: "info@drone-expo.co.ke",
+			},
+		],
+	},
+	{
+		icon: IconMapPin,
+		title: "Address",
+		order: { xs: 3, sm: 2 },
+		desc: [
+			{
+				link: "https://www.google.com/maps/place/Prosperity+House,+Nairobi/@-1.2723743,36.8091986,17z/data=!3m1!4b1!4m6!3m5!1s0x182f17307ceb423b:0x2b6f26cf176c4f6f!8m2!3d-1.2723743!4d36.8117789!16s%2Fg%2F12hlt4d1k?entry=ttu",
+				label: "Prosperity House, Westlands, Nairobi",
+			},
+			{
+				link: "#",
+				label: "PO. Box. 66297-00800",
+			},
+		],
+	},
+	{
+		icon: IconPhone,
+		title: "Phone",
+		order: { xs: 2, sm: 3 },
+		desc: [
+			{
+				link: "tel:+254712656565",
+				label: "+254 712 656-565",
+			},
+		],
+	},
+];
 
 export default function Contact() {
 	return (
 		<Layout.Body header={<Partial.Header.Main />} nav={<Partial.Navbar.Main />} footer={<Partial.Footer.Main />}>
-			<Layout.Page hero={<Partial.Hero.Route image={image.gallery.expo.yr2022.image8} />}>
-				<Layout.Section containerized padded>
-					<Grid>
-						<Grid.Col span={{ base: 12, md: 6 }}>
-							<Container size={"lg"}>
-								<Stack gap={"xl"}>
-									<Stack gap={"md"}>
-										<Title order={2} c={"sec"}>
-											Address
-										</Title>
-										<List listStyleType="none" size="sm" spacing={"xs"}>
-											<List.Item>
-												{" "}
-												<Text component="span" c={"pri"} fw={500}>
-													Location
-												</Text>
-												: Prosperity House, Westlands, Nairobi
-											</List.Item>
-											<List.Item>
-												{" "}
-												<Text component="span" c={"pri"} fw={500}>
-													PO. Box
-												</Text>
-												: 66297-00800
-											</List.Item>
-										</List>
-									</Stack>
-									<Stack gap={"md"}>
-										<Title order={2} c={"sec"}>
-											Questions
-										</Title>
-										<List listStyleType="none" size="sm" spacing={"md"} w={{ md: "80%" }}>
-											{/* <List.Item>
-												Kindly consult the FAQ first.
-											</List.Item> */}
-											<List.Item>
-												For questions about the Expo, please contact Drone Tech & Data Expo team
-												via{" "}
-												<Anchor href="mailto:info@drone-expo.co.ke" fz={"inherit"} fw={500}>
-													info@drone-expo.co.ke
-												</Anchor>
-												.
-											</List.Item>
-											<List.Item>
-												For questions about tickets, registration etc. or media representatives
-												seeking information, press passes, or interview opportunities, please
-												contact our call center via{" "}
-												<Anchor href="tel:+254712656565" fz={"inherit"} fw={500}>
-													+254-712-656565
-												</Anchor>
-												.
-											</List.Item>
-										</List>
-									</Stack>
-									<Stack gap={"md"}>
-										<Title order={2} c={"sec"}>
-											Social Media
-										</Title>
-										<Group align="center" gap={8}>
-											{data.links.social.map(link => (
-												<a key={link.link} href={link.link}>
-													<Image src={link.icon} w={28} h={28} />
-												</a>
-											))}
-										</Group>
-									</Stack>
-								</Stack>
-							</Container>
-						</Grid.Col>
-						<Grid.Col span={{ base: 12, md: 6 }}>
-							<Box
-								style={theme => ({
-									backgroundColor: "var(--mantine-color-sec-light)",
-									borderRadius: theme.radius.sm,
-									padding: `${theme.spacing.md}`,
-								})}
+			<Layout.Page hero={<Partial.Hero.Route image={image.gallery.expo.yr2022.image8} />} padded stacked>
+				<Layout.Section containerized>
+					<Grid grow>
+						{links.map(link => (
+							<Grid.Col
+								key={link.title}
+								span={{ base: 12, xs: 6, sm: 4 }}
+								order={{ xs: link.order.xs, sm: link.order.sm }}
 							>
-								<Stack gap={"xl"}>
-									<Stack gap={"xs"}>
-										<Title order={2} c={"sec"}>
-											Drop Us a Line
-										</Title>
-										<Divider size={"sm"} color="pri" w={"20%"} />
-									</Stack>
-									<Partial.Form.Contact />
-								</Stack>
-							</Box>
-						</Grid.Col>
+								<Component.Card.Contact data={link} />
+							</Grid.Col>
+						))}
 					</Grid>
+				</Layout.Section>
+				<Layout.Section containerized>
+					<Stack ta={"center"}>
+						<Text>
+							For questions about the Expo, please contact Drone Tech & Data Expo team via{" "}
+							<Anchor href="mailto:info@drone-expo.co.ke" fz={"inherit"} fw={500} c={"pri.6"}>
+								info@drone-expo.co.ke
+							</Anchor>
+							.
+						</Text>
+						<Text>
+							For questions about tickets, registration etc. or media representatives seeking information,
+							press passes, or interview opportunities, please contact our call center via{" "}
+							<Anchor href="tel:+254712656565" fz={"inherit"} fw={500} c={"pri.6"}>
+								+254-712-656565
+							</Anchor>
+							.
+						</Text>
+					</Stack>
+				</Layout.Section>
+				<Layout.Section containerized containerSize="sm">
+					<Stack gap={"xl"}>
+						<Stack gap={"xs"} align="center" ta={"center"}>
+							<Title order={2} c={"sec"}>
+								Drop Us a Line
+							</Title>
+							<Divider size={"sm"} color="pri.6" w={"20%"} />
+						</Stack>
+						<Partial.Form.Contact />
+						{/* <Text ta={"center"} fz={"sm"}>
+							Kindly consult the{" "}
+							<Anchor component={Link} to={"#"} inherit>
+								FAQ's
+							</Anchor>{" "}
+							first.
+						</Text> */}
+					</Stack>
 				</Layout.Section>
 			</Layout.Page>
 
