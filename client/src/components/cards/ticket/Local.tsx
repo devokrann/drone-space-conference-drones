@@ -27,9 +27,9 @@ export default function Local({ data }: typeLocal) {
 					{data.desc}
 				</Text>
 			</Stack>
-			<Button fullWidth component="a" href={link} target="_blank" color={"sec"}>
+			{/* <Button fullWidth component="a" href={link} target="_blank" color={"sec"}>
 				Purchase {data.title} Ticket
-			</Button>
+			</Button> */}
 		</Stack>
 	);
 }
