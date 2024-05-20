@@ -34,7 +34,7 @@
 }
 
 .link {
-	color: light-dark(var(--mantine-color-sec-6), var(--mantine-color-pri-6));
+	color: var(--mantine-color-sec-6);
 	padding: 0 calc(var(--mantine-spacing-xs) / 4);
 	// text-transform: uppercase;
 	text-decoration: none;
@@ -43,14 +43,10 @@
 	transition: 0.25s all ease;
 
 	&:hover {
-		color: light-dark(var(--mantine-color-pri-6), var(--mantine-color-sec-6));
+		color: var(--mantine-color-pri-6);
 	}
 
 	&:active {
 		color: var(--mantine-color-pri-6);
 	}
-}
-
-.burger {
-	color: var(--mantine-color-red-5);
 }

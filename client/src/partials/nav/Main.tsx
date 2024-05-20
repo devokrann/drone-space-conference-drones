@@ -156,7 +156,7 @@ export default function Main({ data = links }) {
 						{items}
 					</Group>
 
-					<Burger opened={opened} onClick={toggle} color={"sec.6"} size="sm" hiddenFrom="md" />
+					<Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="md" />
 
 					<Drawer opened={opened} onClose={close} withCloseButton={false} size={240}>
 						<Stack gap={"xl"}>
